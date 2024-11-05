@@ -29,7 +29,7 @@ public class ParcelaEdit extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_noteedit);
+        setContentView(R.layout.activity_parcelaedit);
 
         mTitleText = findViewById(R.id.title);
         mBodyText = findViewById(R.id.body);

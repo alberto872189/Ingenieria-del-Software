@@ -7,25 +7,25 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import es.unizar.eina.notepad.database.Note;
-import es.unizar.eina.notepad.database.NoteRepository;
+import es.unizar.eina.notepad.database.CampingRepository;
+import es.unizar.eina.notepad.database.Parcela;
 
 public class ParcelaViewModel extends AndroidViewModel {
 
-    private NoteRepository mRepository;
+    private CampingRepository mRepository;
 
-    private final LiveData<List<Note>> mAllNotes;
+    private final LiveData<List<Parcela>> mAllNotes;
 
     public ParcelaViewModel(Application application) {
         super(application);
-        mRepository = new NoteRepository(application);
+        mRepository = new CampingRepository(application);
         mAllNotes = mRepository.getAllNotes();
     }
 
-    LiveData<List<Note>> getAllNotes() { return mAllNotes; }
+    LiveData<List<Parcela>> getAllNotes() { return mAllNotes; }
 
-    public void insert(Note note) { mRepository.insert(note); }
+    public void insert(Parcela parcela) { mRepository.insert(parcela); }
 
-    public void update(Note note) { mRepository.update(note); }
-    public void delete(Note note) { mRepository.delete(note); }
+    public void update(Parcela parcela) { mRepository.update(parcela); }
+    public void delete(Parcela parcela) { mRepository.delete(parcela); }
 }
