@@ -1,4 +1,4 @@
-package es.unizar.eina.notepad.database;
+package es.unizar.eina.camping.database;
 
 import android.content.Context;
 
@@ -11,22 +11,22 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Note.class}, version = 1, exportSchema = false)
-public abstract class NoteRoomDatabase extends RoomDatabase {
+@Database(entities = {Parcela.class}, version = 1, exportSchema = false)
+public abstract class CampingRoomDatabase extends RoomDatabase {
 
-    public abstract NoteDao noteDao();
+    public abstract ParcelaDao ParcelaDao();
 
-    private static volatile NoteRoomDatabase INSTANCE;
+    private static volatile CampingRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-    static NoteRoomDatabase getDatabase(final Context context) {
+    static CampingRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (NoteRoomDatabase.class) {
+            synchronized (CampingRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    NoteRoomDatabase.class, "note_database")
+                                    CampingRoomDatabase.class, "note_database")
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -45,13 +45,13 @@ public abstract class NoteRoomDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 // Populate the database in the background.
                 // If you want to start with more notes, just add them.
-                NoteDao dao = INSTANCE.noteDao();
+                ParcelaDao dao = INSTANCE.ParcelaDao();
                 dao.deleteAll();
 
-                Note note = new Note("Note 1's title", "Note 1's body");
-                dao.insert(note);
-                note = new Note("Note 2's title", "Note 2's body");
-                dao.insert(note);
+                Parcela parcela = new Parcela("Parcela 1's title", "Parcela 1's body");
+                dao.insert(parcela);
+                parcela = new Parcela("Parcela 2's title", "Parcela 2's body");
+                dao.insert(parcela);
             });
         }
     };

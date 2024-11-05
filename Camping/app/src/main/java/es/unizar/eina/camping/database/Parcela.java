@@ -1,4 +1,4 @@
-package es.unizar.eina.notepad.database;
+package es.unizar.eina.camping.database;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

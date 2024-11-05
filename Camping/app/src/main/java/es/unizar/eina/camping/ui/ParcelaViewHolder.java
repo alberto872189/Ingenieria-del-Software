@@ -1,4 +1,4 @@
-package es.unizar.eina.notepad.ui;
+package es.unizar.eina.camping.ui;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import es.unizar.eina.notepad.R;
+import es.unizar.eina.camping.R;
 
 class ParcelaViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
     private final TextView mNoteItemView;

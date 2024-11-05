@@ -1,4 +1,4 @@
-package es.unizar.eina.notepad.ui;
+package es.unizar.eina.camping.ui;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +14,13 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import es.unizar.eina.notepad.database.Note;
-import es.unizar.eina.notepad.R;
+import es.unizar.eina.camping.database.Parcela;
+import es.unizar.eina.camping.R;
 
 import static androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 
-/** Pantalla principal de la aplicación Notepad */
-public class Notepad extends AppCompatActivity {
+/** Pantalla principal de la aplicación Parcelapad */
+public class Parcelapad extends AppCompatActivity {
     private ParcelaViewModel mParcelaViewModel;
 
     static final int INSERT_ID = Menu.FIRST;
@@ -36,7 +36,7 @@ public class Notepad extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notepad);
+        setContentView(R.layout.activity_parcelapad);
         mRecyclerView = findViewById(R.id.recyclerview);
         mAdapter = new ParcelaListAdapter(new ParcelaListAdapter.NoteDiff());
         mRecyclerView.setAdapter(mAdapter);
@@ -74,7 +74,7 @@ public class Notepad extends AppCompatActivity {
     }
 
      public boolean onContextItemSelected(MenuItem item) {
-        Note current = mAdapter.getCurrent();
+        Parcela current = mAdapter.getCurrent();
         switch (item.getItemId()) {
             case DELETE_ID:
                 Toast.makeText(
@@ -96,8 +96,8 @@ public class Notepad extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResult() {
         @Override
-        public void process(Bundle extras, Note note) {
-            mParcelaViewModel.insert(note);
+        public void process(Bundle extras, Parcela parcela) {
+            mParcelaViewModel.insert(parcela);
         }
     });
 
@@ -107,14 +107,14 @@ public class Notepad extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Bundle extras = result.getData().getExtras();
-                        Note note = new Note(extras.getString(ParcelaEdit.NOTE_TITLE),
+                        Parcela parcela = new Parcela(extras.getString(ParcelaEdit.NOTE_TITLE),
                                 extras.getString(ParcelaEdit.NOTE_BODY));
-                        executable.process(extras, note);
+                        executable.process(extras, parcela);
                     }
                 });
     }
 
-    private void editNote(Note current) {
+    private void editNote(Parcela current) {
         Intent intent = new Intent(this, ParcelaEdit.class);
         intent.putExtra(ParcelaEdit.NOTE_TITLE, current.getTitle());
         intent.putExtra(ParcelaEdit.NOTE_BODY, current.getBody());
@@ -124,15 +124,15 @@ public class Notepad extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> mStartUpdateNote = newActivityResultLauncher(new ExecuteActivityResult() {
         @Override
-        public void process(Bundle extras, Note note) {
+        public void process(Bundle extras, Parcela parcela) {
             int id = extras.getInt(ParcelaEdit.NOTE_ID);
-            note.setId(id);
-            mParcelaViewModel.update(note);
+            parcela.setId(id);
+            mParcelaViewModel.update(parcela);
         }
     });
 
 }
 
 interface ExecuteActivityResult {
-    void process(Bundle extras, Note note);
+    void process(Bundle extras, Parcela parcela);
 }
