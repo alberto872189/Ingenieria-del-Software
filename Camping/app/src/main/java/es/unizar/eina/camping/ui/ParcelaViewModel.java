@@ -22,7 +22,7 @@ public class ParcelaViewModel extends AndroidViewModel {
         mAllNotes = mRepository.getAllNotes();
     }
 
-    LiveData<List<Parcela>> getAllNotes() { return mAllNotes; }
+    LiveData<List<Parcela>> getAllParcelas() { return mAllNotes; }
 
     public void insert(Parcela parcela) { mRepository.insert(parcela); }
 

@@ -17,7 +17,12 @@
             android:exported="false" />
         <activity
             android:name=".ui.Parcelapad"
-            android:exported="true">
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".ui.IndexParcela"
+            android:exported="false">
 
         </activity>
         <activity

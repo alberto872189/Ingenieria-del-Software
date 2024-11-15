@@ -12,7 +12,7 @@
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title"
+            android:text="Nombre"
             android:layout_margin="@dimen/big_padding"
             android:textSize="18sp" />
         <EditText
@@ -29,20 +29,22 @@
 
     <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/body"
-        android:layout_margin="@dimen/big_padding"
-        android:textSize="18sp" />
-    <EditText android:id="@+id/body"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:fontFamily="sans-serif-light"
-        android:hint="@string/hint_body"
-        android:inputType="textAutoComplete"
+        android:text="Descripción"
         android:layout_margin="@dimen/big_padding"
         android:textSize="18sp" />
 
+
+    <EditText
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_margin="@dimen/big_padding"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-light"
+        android:hint="Escribe la descripción"
+        android:inputType="textAutoComplete"
+        android:scrollbars="vertical"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/button_save"

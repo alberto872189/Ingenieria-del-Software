@@ -44,13 +44,13 @@ public class Parcelapad extends AppCompatActivity {
 
         mParcelaViewModel = new ViewModelProvider(this).get(ParcelaViewModel.class);
 
-        mParcelaViewModel.getAllNotes().observe(this, notes -> {
+        mParcelaViewModel.getAllParcelas().observe(this, notes -> {
             // Update the cached copy of the notes in the adapter.
             mAdapter.submitList(notes);
         });
 
         mFab = findViewById(R.id.fab);
-        mFab.setOnClickListener(view -> createNote());
+        mFab.setOnClickListener(view -> createParcela());
 
         // It doesn't affect if we comment the following instruction
         registerForContextMenu(mRecyclerView);
@@ -67,7 +67,7 @@ public class Parcelapad extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case INSERT_ID:
-                createNote();
+                createParcela();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -84,13 +84,13 @@ public class Parcelapad extends AppCompatActivity {
                 mParcelaViewModel.delete(current);
                 return true;
             case EDIT_ID:
-                editNote(current);
+                editParcela(current);
                 return true;
         }
         return super.onContextItemSelected(item);
     }
 
-    private void createNote() {
+    private void createParcela() {
         mStartCreateNote.launch(new Intent(this, ParcelaEdit.class));
     }
 
@@ -114,7 +114,7 @@ public class Parcelapad extends AppCompatActivity {
                 });
     }
 
-    private void editNote(Parcela current) {
+    private void editParcela(Parcela current) {
         Intent intent = new Intent(this, ParcelaEdit.class);
         intent.putExtra(ParcelaEdit.NOTE_TITLE, current.getTitle());
         intent.putExtra(ParcelaEdit.NOTE_BODY, current.getBody());
