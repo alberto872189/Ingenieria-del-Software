@@ -26,7 +26,7 @@ public class Index extends AppCompatActivity {
         });
 
         mReservaButton.setOnClickListener(view -> {
-            Intent intent = new Intent(Index.this, Parcelapad.class); //CAMBIAR PARCELAPAD POR RESERVAPAD
+            Intent intent = new Intent(Index.this, IndexReserva.class);
             startActivity(intent);
         });
     }

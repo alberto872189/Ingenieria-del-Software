@@ -22,9 +22,10 @@
         </activity>
         <activity
             android:name=".ui.IndexParcela"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"/>
+        <activity
+            android:name=".ui.IndexReserva"
+            android:exported="false"/>
         <activity
             android:name=".ui.Index"
             android:exported="true">
