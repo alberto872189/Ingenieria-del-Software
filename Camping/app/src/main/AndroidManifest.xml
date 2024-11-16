@@ -16,10 +16,11 @@
             android:name=".ui.ParcelaEdit"
             android:exported="false" />
         <activity
+            android:name=".ui.ParcelaCreate"
+            android:exported="false" />
+        <activity
             android:name=".ui.Parcelapad"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".ui.IndexParcela"
             android:exported="false"/>

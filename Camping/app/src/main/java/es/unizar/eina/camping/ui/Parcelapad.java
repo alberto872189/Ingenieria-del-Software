@@ -107,8 +107,8 @@ public class Parcelapad extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Bundle extras = result.getData().getExtras();
-                        Parcela parcela = new Parcela(extras.getString(ParcelaEdit.NOTE_TITLE),
-                                extras.getString(ParcelaEdit.NOTE_BODY));
+                        Parcela parcela = new Parcela(extras.getString(ParcelaEdit.PARCELA_TITLE),
+                                extras.getString(ParcelaEdit.PARCELA_BODY));
                         executable.process(extras, parcela);
                     }
                 });
@@ -116,16 +116,16 @@ public class Parcelapad extends AppCompatActivity {
 
     private void editParcela(Parcela current) {
         Intent intent = new Intent(this, ParcelaEdit.class);
-        intent.putExtra(ParcelaEdit.NOTE_TITLE, current.getTitle());
-        intent.putExtra(ParcelaEdit.NOTE_BODY, current.getBody());
-        intent.putExtra(ParcelaEdit.NOTE_ID, current.getId());
+        intent.putExtra(ParcelaEdit.PARCELA_TITLE, current.getTitle());
+        intent.putExtra(ParcelaEdit.PARCELA_BODY, current.getBody());
+        intent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, current.getId());
         mStartUpdateNote.launch(intent);
     }
 
     ActivityResultLauncher<Intent> mStartUpdateNote = newActivityResultLauncher(new ExecuteActivityResult() {
         @Override
         public void process(Bundle extras, Parcela parcela) {
-            int id = extras.getInt(ParcelaEdit.NOTE_ID);
+            int id = extras.getInt(ParcelaEdit.PARCELA_OCUPANTES);
             parcela.setId(id);
             mParcelaViewModel.update(parcela);
         }

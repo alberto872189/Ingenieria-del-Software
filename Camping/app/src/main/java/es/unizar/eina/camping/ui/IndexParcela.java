@@ -17,10 +17,10 @@ public class IndexParcela extends AppCompatActivity {
         setContentView(R.layout.activity_parcelaindex);
 
         mCreateParcelaButton = findViewById(R.id.CrearParcelaButton);
-        mCreateParcelaButton = findViewById(R.id.VerParcelasButton);
+        mVerParcelaButton = findViewById(R.id.VerParcelasButton);
 
         mCreateParcelaButton.setOnClickListener(view -> {
-            Intent intent = new Intent(IndexParcela.this, Parcelapad.class); //CAMBIAR POR CREARPARCELA
+            Intent intent = new Intent(IndexParcela.this, ParcelaCreate.class);
             startActivity(intent);
         });
 

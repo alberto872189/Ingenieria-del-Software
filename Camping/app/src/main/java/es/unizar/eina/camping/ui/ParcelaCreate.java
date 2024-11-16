@@ -1,7 +1,5 @@
 package es.unizar.eina.camping.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,10 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import es.unizar.eina.camping.R;
 
 /** Pantalla utilizada para la creación o edición de una nota */
-public class ParcelaEdit extends AppCompatActivity {
+public class ParcelaCreate extends AppCompatActivity {
 
     public static final String PARCELA_TITLE = "title";
     public static final String PARCELA_BODY = "body";
@@ -35,7 +35,7 @@ public class ParcelaEdit extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parcelaedit);
+        setContentView(R.layout.activity_parcelacreate);
 
         mTitleText = findViewById(R.id.title);
         mBodyText = findViewById(R.id.body);
@@ -49,10 +49,10 @@ public class ParcelaEdit extends AppCompatActivity {
                 setResult(RESULT_CANCELED, replyIntent);
                 Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
             } else {
-                replyIntent.putExtra(ParcelaEdit.PARCELA_TITLE, mTitleText.getText().toString());
-                replyIntent.putExtra(ParcelaEdit.PARCELA_BODY, mBodyText.getText().toString());
-                replyIntent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, mMaxOcupantesText.getText().toString());
-                replyIntent.putExtra(ParcelaEdit.PARCELA_PRECIO, mPriceText.getText().toString());
+                replyIntent.putExtra(ParcelaCreate.PARCELA_TITLE, mTitleText.getText().toString());
+                replyIntent.putExtra(ParcelaCreate.PARCELA_BODY, mBodyText.getText().toString());
+                replyIntent.putExtra(ParcelaCreate.PARCELA_OCUPANTES, mMaxOcupantesText.getText().toString());
+                replyIntent.putExtra(ParcelaCreate.PARCELA_PRECIO, mPriceText.getText().toString());
                /* if (mRowId!=null) {
                     replyIntent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, mRowId.intValue());
                 }*/
@@ -76,10 +76,10 @@ public class ParcelaEdit extends AppCompatActivity {
         //mRowId = null;
         Bundle extras = getIntent().getExtras();
         if (extras!=null) {
-            mTitleText.setText(extras.getString(ParcelaEdit.PARCELA_TITLE));
-            mBodyText.setText(extras.getString(ParcelaEdit.PARCELA_BODY));
-            mMaxOcupantesText.setText(extras.getString(ParcelaEdit.PARCELA_OCUPANTES));
-            mPriceText.setText(extras.getString(ParcelaEdit.PARCELA_PRECIO));
+            mTitleText.setText(extras.getString(ParcelaCreate.PARCELA_TITLE));
+            mBodyText.setText(extras.getString(ParcelaCreate.PARCELA_BODY));
+            mMaxOcupantesText.setText(extras.getString(ParcelaCreate.PARCELA_OCUPANTES));
+            mPriceText.setText(extras.getString(ParcelaCreate.PARCELA_PRECIO));
             //mRowId = extras.getInt(ParcelaEdit.PARCELA_OCUPANTES);
         }
     }
