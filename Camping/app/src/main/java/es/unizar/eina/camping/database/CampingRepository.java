@@ -32,15 +32,26 @@ public class CampingRepository {
     public CampingRepository(Application application) {
         CampingRoomDatabase db = CampingRoomDatabase.getDatabase(application);
         mParcelaDao = db.ParcelaDao();
-        mAllNotes = mParcelaDao.getOrderedNotes();
+        mAllNotes = mParcelaDao.getOrderedParcelasName();
     }
 
     /** Devuelve un objeto de tipo LiveData con todas las notas.
      * Room ejecuta todas las consultas en un hilo separado.
      * El objeto LiveData notifica a los observadores cuando los datos cambian.
      */
-    public LiveData<List<Parcela>> getAllNotes() {
+    public LiveData<List<Parcela>> getAllParcelas() {
         return mAllNotes;
+    }
+
+    public LiveData<List<Parcela>> getAllParcelasPrecio() {
+        return mParcelaDao.getOrderedParcelasPrecio();
+    }
+
+    public LiveData<List<Parcela>> getAllParcelasName() {
+        return mParcelaDao.getOrderedParcelasName();
+    }
+    public LiveData<List<Parcela>> getAllParcelasOcupantes() {
+        return mParcelaDao.getOrderedParcelasOcupantes();
     }
 
     /** Inserta una nota nueva en la base de datos

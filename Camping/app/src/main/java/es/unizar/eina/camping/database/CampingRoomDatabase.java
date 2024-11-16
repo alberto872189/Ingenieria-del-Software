@@ -48,9 +48,9 @@ public abstract class CampingRoomDatabase extends RoomDatabase {
                 ParcelaDao dao = INSTANCE.ParcelaDao();
                 dao.deleteAll();
 
-                Parcela parcela = new Parcela("Parcela 1's title", "Parcela 1's body");
+                Parcela parcela = new Parcela("Parcela 1's title", "Parcela 1's body", 2.5, 5);
                 dao.insert(parcela);
-                parcela = new Parcela("Parcela 2's title", "Parcela 2's body");
+                parcela = new Parcela("Parcela 2's title", "Parcela 2's body", 3.5, 5);
                 dao.insert(parcela);
             });
         }

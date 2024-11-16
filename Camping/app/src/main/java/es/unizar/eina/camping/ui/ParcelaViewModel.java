@@ -14,15 +14,21 @@ public class ParcelaViewModel extends AndroidViewModel {
 
     private CampingRepository mRepository;
 
-    private final LiveData<List<Parcela>> mAllNotes;
+    private final LiveData<List<Parcela>> mAllParcelas;
 
     public ParcelaViewModel(Application application) {
         super(application);
         mRepository = new CampingRepository(application);
-        mAllNotes = mRepository.getAllNotes();
+        mAllParcelas = mRepository.getAllParcelas();
     }
 
-    LiveData<List<Parcela>> getAllParcelas() { return mAllNotes; }
+    LiveData<List<Parcela>> getAllParcelas() { return mAllParcelas; }
+
+    LiveData<List<Parcela>> getAllParcelasName() {return mRepository.getAllParcelasName();}
+
+    LiveData<List<Parcela>> getAllParcelasPrecio() {return mRepository.getAllParcelasPrecio();}
+
+    LiveData<List<Parcela>> getAllParcelasOcupantes() {return mRepository.getAllParcelasOcupantes();}
 
     public void insert(Parcela parcela) { mRepository.insert(parcela); }
 

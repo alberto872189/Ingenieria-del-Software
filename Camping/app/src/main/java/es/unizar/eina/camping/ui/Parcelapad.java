@@ -10,9 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.unizar.eina.camping.database.Parcela;
 import es.unizar.eina.camping.R;
@@ -31,7 +30,9 @@ public class Parcelapad extends AppCompatActivity {
 
     ParcelaListAdapter mAdapter;
 
-    FloatingActionButton mFab;
+    Button mOrdenarPrecio;
+    Button mOrdenarID;
+    Button mOrdenarOcupantes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +45,35 @@ public class Parcelapad extends AppCompatActivity {
 
         mParcelaViewModel = new ViewModelProvider(this).get(ParcelaViewModel.class);
 
-        mParcelaViewModel.getAllParcelas().observe(this, notes -> {
-            // Update the cached copy of the notes in the adapter.
-            mAdapter.submitList(notes);
+        mParcelaViewModel.getAllParcelas().observe(this, parcelas -> {
+            // Update the cached copy of the parcelas in the adapter.
+            mAdapter.submitList(parcelas);
         });
 
-        mFab = findViewById(R.id.fab);
-        mFab.setOnClickListener(view -> createParcela());
+        mOrdenarPrecio = findViewById(R.id.buttonPrecio);
+        mOrdenarID = findViewById(R.id.buttonID);
+        mOrdenarOcupantes = findViewById(R.id.buttonOcupantes);
+
+        mOrdenarPrecio.setOnClickListener(view -> {
+            mParcelaViewModel.getAllParcelasPrecio().observe(this, parcelas -> {
+                // Update the cached copy of the parcelas in the adapter.
+                mAdapter.submitList(parcelas);
+            });
+        });
+
+        mOrdenarID.setOnClickListener(view -> {
+            mParcelaViewModel.getAllParcelasName().observe(this, parcelas -> {
+                // Update the cached copy of the parcelas in the adapter.
+                mAdapter.submitList(parcelas);
+            });
+        });
+
+        mOrdenarOcupantes.setOnClickListener(view -> {
+            mParcelaViewModel.getAllParcelasOcupantes().observe(this, parcelas -> {
+                // Update the cached copy of the parcelas in the adapter.
+                mAdapter.submitList(parcelas);
+            });
+        });
 
         // It doesn't affect if we comment the following instruction
         registerForContextMenu(mRecyclerView);
@@ -79,7 +102,7 @@ public class Parcelapad extends AppCompatActivity {
             case DELETE_ID:
                 Toast.makeText(
                         getApplicationContext(),
-                        "Deleting " + current.getTitle(),
+                        "Deleting " + current.getName(),
                         Toast.LENGTH_LONG).show();
                 mParcelaViewModel.delete(current);
                 return true;
@@ -107,8 +130,10 @@ public class Parcelapad extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Bundle extras = result.getData().getExtras();
-                        Parcela parcela = new Parcela(extras.getString(ParcelaEdit.PARCELA_TITLE),
-                                extras.getString(ParcelaEdit.PARCELA_BODY));
+                        Parcela parcela = new Parcela(extras.getString(ParcelaEdit.PARCELA_NAME),
+                                extras.getString(ParcelaEdit.PARCELA_DESCRIPCION),
+                                Double.valueOf(extras.getString(ParcelaEdit.PARCELA_PRECIO)),
+                                Integer.valueOf(extras.getString(ParcelaEdit.PARCELA_OCUPANTES)));
                         executable.process(extras, parcela);
                     }
                 });
@@ -116,17 +141,18 @@ public class Parcelapad extends AppCompatActivity {
 
     private void editParcela(Parcela current) {
         Intent intent = new Intent(this, ParcelaEdit.class);
-        intent.putExtra(ParcelaEdit.PARCELA_TITLE, current.getTitle());
-        intent.putExtra(ParcelaEdit.PARCELA_BODY, current.getBody());
-        intent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, current.getId());
-        mStartUpdateNote.launch(intent);
+        intent.putExtra(ParcelaEdit.PARCELA_NAME, current.getName());
+        intent.putExtra(ParcelaEdit.PARCELA_DESCRIPCION, current.getDescripcion());
+        intent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, current.getOcupantes());
+        intent.putExtra(ParcelaEdit.PARCELA_PRECIO, current.getPrecio());
+        mStartUpdateParcela.launch(intent);
     }
 
-    ActivityResultLauncher<Intent> mStartUpdateNote = newActivityResultLauncher(new ExecuteActivityResult() {
+    ActivityResultLauncher<Intent> mStartUpdateParcela = newActivityResultLauncher(new ExecuteActivityResult() {
         @Override
         public void process(Bundle extras, Parcela parcela) {
-            int id = extras.getInt(ParcelaEdit.PARCELA_OCUPANTES);
-            parcela.setId(id);
+            String name = ParcelaEdit.PARCELA_NAME;
+            parcela.setName(name);
             mParcelaViewModel.update(parcela);
         }
     });

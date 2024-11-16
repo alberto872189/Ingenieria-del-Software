@@ -8,40 +8,41 @@ import androidx.room.PrimaryKey;
 /** Clase anotada como entidad que representa una nota y que consta de título y cuerpo */
 @Entity(tableName = "parcela")
 public class Parcela {
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    private int id;
-
+    @PrimaryKey(autoGenerate = false)
     @NonNull
-    @ColumnInfo(name = "title")
-    private String title;
+    @ColumnInfo(name = "name")
+    private String name;
 
-    @ColumnInfo(name = "body")
-    private String body;
+    @ColumnInfo(name = "descripcion")
+    private String descripcion;
 
-    public Parcela(@NonNull String title, String body) {
-        this.title = title;
-        this.body = body;
-    }
+    @ColumnInfo(name = "precio")
+    private Double precio;
 
-    /** Devuelve el identificador de la nota */
-    public int getId(){
-        return this.id;
-    }
+    @ColumnInfo(name = "ocupantes")
+    private Integer ocupantes;
 
-    /** Permite actualizar el identificador de una nota */
-    public void setId(int id) {
-        this.id = id;
+    public Parcela(@NonNull String name, String descripcion, Double precio, Integer ocupantes) {
+        this.name = name;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.ocupantes = ocupantes;
     }
 
     /** Devuelve el título de la nota */
-    public String getTitle(){
-        return this.title;
+    public String getName(){
+        return this.name;
     }
 
+    public void setName(String name) {this.name = name;}
+
+    public Double getPrecio() {return this.precio; }
+
+    public Integer getOcupantes() {return this.ocupantes; }
+
     /** Devuelve el cuerpo de la nota */
-    public String getBody(){
-        return this.body;
+    public String getDescripcion(){
+        return this.descripcion;
     }
 
 }
