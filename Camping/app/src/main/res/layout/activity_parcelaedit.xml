@@ -48,7 +48,7 @@
     <EditText
         android:id="@+id/body"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_margin="@dimen/big_padding"
         android:fadingEdge="horizontal"
         android:fontFamily="sans-serif-light"
@@ -76,7 +76,7 @@
             android:layout_margin="@dimen/big_padding"
             android:fontFamily="sans-serif-light"
             android:hint="@string/hint_title"
-            android:inputType="textAutoComplete"
+            android:inputType="number"
             android:minHeight="@dimen/min_height"
             android:textSize="18sp" />
     </LinearLayout>

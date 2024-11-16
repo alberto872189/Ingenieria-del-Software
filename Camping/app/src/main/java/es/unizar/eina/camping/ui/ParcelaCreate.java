@@ -61,8 +61,8 @@ public class ParcelaCreate extends AppCompatActivity {
             finish();
         });
 
-        mSaveButton = findViewById(R.id.button_cancel);
-        mSaveButton.setOnClickListener(view -> {
+        mCancelButton = findViewById(R.id.button_cancel);
+        mCancelButton.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
             setResult(RESULT_CANCELED, replyIntent);
             finish();
