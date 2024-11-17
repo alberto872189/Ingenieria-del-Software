@@ -19,7 +19,9 @@ import java.util.concurrent.TimeoutException;
 public class CampingRepository {
 
     private final ParcelaDao mParcelaDao;
-    private final LiveData<List<Parcela>> mAllNotes;
+    private final ReservaDao mReservaDao;
+    private final LiveData<List<Parcela>> mAllParcelas;
+    private final LiveData<List<Reserva>> mAllRerervas;
 
     private final long TIMEOUT = 15000;
 
@@ -32,7 +34,8 @@ public class CampingRepository {
     public CampingRepository(Application application) {
         CampingRoomDatabase db = CampingRoomDatabase.getDatabase(application);
         mParcelaDao = db.ParcelaDao();
-        mAllNotes = mParcelaDao.getOrderedParcelasName();
+        mAllParcelas = mParcelaDao.getOrderedParcelasName();
+        mAllRerervas = mReservaDao.getOrderedReservasName();
     }
 
     /** Devuelve un objeto de tipo LiveData con todas las notas.
@@ -40,7 +43,7 @@ public class CampingRepository {
      * El objeto LiveData notifica a los observadores cuando los datos cambian.
      */
     public LiveData<List<Parcela>> getAllParcelas() {
-        return mAllNotes;
+        return mAllParcelas;
     }
 
     public LiveData<List<Parcela>> getAllParcelasPrecio() {
@@ -52,6 +55,21 @@ public class CampingRepository {
     }
     public LiveData<List<Parcela>> getAllParcelasOcupantes() {
         return mParcelaDao.getOrderedParcelasOcupantes();
+    }
+
+    public LiveData<List<Reserva>> getAllReservas() {
+        return mAllReservas;
+    }
+
+    public LiveData<List<Reserva>> getAllReservasName() {
+        return mReservaDao.getOrderedReservasName();
+    }
+
+    public LiveData<List<Reserva>> getAllReservasMovil() {
+        return mReservaDao.getOrderedReservasMovil();
+    }
+    public LiveData<List<Reserva>> getAllReservasFecha() {
+        return mReservaDao.getOrderedReservasFecha();
     }
 
     /** Inserta una nota nueva en la base de datos
@@ -105,6 +123,44 @@ public class CampingRepository {
     public int delete(Parcela parcela) {
         Future<Integer> future = CampingRoomDatabase.databaseWriteExecutor.submit(
                 () -> mParcelaDao.delete(parcela));
+        try {
+            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            Log.d("CampingRepository", ex.getClass().getSimpleName() + ex.getMessage());
+            return -1;
+        }
+    }
+
+    public long insert(Reserva reserva) {
+        /* Para que la App funcione correctamente y no lance una excepción, la modificación de la
+         * base de datos se debe lanzar en un hilo de ejecución separado
+         * (databaseWriteExecutor.submit). Para poder sincronizar la recuperación del resultado
+         * devuelto por la base de datos, se puede utilizar un Future.
+         */
+        Future<Long> future = CampingRoomDatabase.databaseWriteExecutor.submit(
+                () -> mReservaDao.insert(reserva));
+        try {
+            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            Log.d("CampingRepository", ex.getClass().getSimpleName() + ex.getMessage());
+            return -1;
+        }
+    }
+
+    public int update(Reserva reserva) {
+        Future<Integer> future = CampingRoomDatabase.databaseWriteExecutor.submit(
+                () -> mReservaDao.update(reserva));
+        try {
+            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            Log.d("CampingRepository", ex.getClass().getSimpleName() + ex.getMessage());
+            return -1;
+        }
+    }
+
+    public int delete(Reserva reserva) {
+        Future<Integer> future = CampingRoomDatabase.databaseWriteExecutor.submit(
+                () -> mReservaDao.delete(reserva));
         try {
             return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException ex) {

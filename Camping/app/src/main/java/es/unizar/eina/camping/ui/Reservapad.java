@@ -1,10 +1,6 @@
 package es.unizar.eina.camping.ui;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import static androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +9,14 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
-import es.unizar.eina.camping.database.Parcela;
-import es.unizar.eina.camping.R;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import static androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
+import es.unizar.eina.camping.R;
+import es.unizar.eina.camping.database.Parcela;
 
 /** Pantalla principal de la aplicación Parcelapad */
 public class Parcelapad extends AppCompatActivity {
@@ -150,6 +150,6 @@ public class Parcelapad extends AppCompatActivity {
 
 }
 
-interface ExecuteActivityResult {
-    void process(Bundle extras, Parcela parcela);
+interface ExecuteActivityResultReserva {
+    void process(Bundle extras, Reserva reserva);
 }
