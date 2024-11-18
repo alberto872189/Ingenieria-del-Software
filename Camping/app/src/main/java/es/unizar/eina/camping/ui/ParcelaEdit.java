@@ -1,6 +1,7 @@
 package es.unizar.eina.camping.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.List;
+
 import es.unizar.eina.camping.R;
+import es.unizar.eina.camping.database.Parcela;
+import es.unizar.eina.camping.database.ParcelaDao;
 
 /** Pantalla utilizada para la creación o edición de una nota */
 public class ParcelaEdit extends AppCompatActivity {

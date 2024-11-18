@@ -14,10 +14,10 @@ import es.unizar.eina.camping.R;
 /** Pantalla utilizada para la creación o edición de una nota */
 public class ReservaCreate extends AppCompatActivity {
 
-    public static final String PARCELA_TITLE = "title";
-    public static final String PARCELA_BODY = "body";
-    public static final String PARCELA_OCUPANTES = "ocupantes";
-    public static final String PARCELA_PRECIO = "precio";
+  /*  public static final String RESERVA_TITLE = "title";
+    public static final String RESERVA_BODY = "body";
+    public static final String RESERVA_OCUPANTES = "ocupantes";
+    public static final String RESERVA_PRECIO = "precio";
 
     private EditText mTitleText;
 
@@ -55,7 +55,7 @@ public class ReservaCreate extends AppCompatActivity {
                 replyIntent.putExtra(ReservaCreate.PARCELA_PRECIO, mPriceText.getText().toString());
                /* if (mRowId!=null) {
                     replyIntent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, mRowId.intValue());
-                }*/
+                }
                 setResult(RESULT_OK, replyIntent);
             }
             finish();
@@ -82,6 +82,6 @@ public class ReservaCreate extends AppCompatActivity {
             mPriceText.setText(extras.getString(ReservaCreate.PARCELA_PRECIO));
             //mRowId = extras.getInt(ParcelaEdit.PARCELA_OCUPANTES);
         }
-    }
+    }*/
 
 }

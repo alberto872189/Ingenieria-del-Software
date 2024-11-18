@@ -39,7 +39,7 @@ public class Parcelapad extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parcelapad);
         mRecyclerView = findViewById(R.id.recyclerview);
-        mAdapter = new ParcelaListAdapter(new ParcelaListAdapter.NoteDiff());
+        mAdapter = new ParcelaListAdapter(new ParcelaListAdapter.ParcelaDiff());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

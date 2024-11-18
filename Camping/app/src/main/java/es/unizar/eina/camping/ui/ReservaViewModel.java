@@ -22,7 +22,7 @@ public class ReservaViewModel extends AndroidViewModel {
         mAllReservas = mRepository.getAllReservas();
     }
 
-    LiveData<List<Reserva>> getAllParcelas() { return mAllReservas; }
+    LiveData<List<Reserva>> getAllReservas() { return mAllReservas; }
 
     LiveData<List<Reserva>> getAllReservasName() {return mRepository.getAllReservasName();}
 

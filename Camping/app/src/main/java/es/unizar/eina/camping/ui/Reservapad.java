@@ -21,7 +21,7 @@ import es.unizar.eina.camping.database.Reserva;
 
 /** Pantalla principal de la aplicación Parcelapad */
 public class Reservapad extends AppCompatActivity {
-    private ParcelaViewModel mParcelaViewModel;
+    /*private ReservaViewModel mReservaViewModel;
 
     static final int INSERT_ID = Menu.FIRST;
     static final int DELETE_ID = Menu.FIRST + 1;
@@ -29,7 +29,7 @@ public class Reservapad extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
 
-    ParcelaListAdapter mAdapter;
+    ReservaListAdapter mAdapter;
 
     Button mOrdenarPrecio;
     Button mOrdenarID;
@@ -40,15 +40,15 @@ public class Reservapad extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parcelapad);
         mRecyclerView = findViewById(R.id.recyclerview);
-        mAdapter = new ParcelaListAdapter(new ParcelaListAdapter.NoteDiff());
+        mAdapter = new ReservaListAdapter(new ReservaListAdapter.ReservaDiff());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mParcelaViewModel = new ViewModelProvider(this).get(ParcelaViewModel.class);
+        mReservaViewModel = new ViewModelProvider(this).get(ReservaViewModel.class);
 
-        mParcelaViewModel.getAllParcelas().observe(this, parcelas -> {
+        mReservaViewModel.getAllReservas().observe(this, reservas -> {
             // Update the cached copy of the parcelas in the adapter.
-            mAdapter.submitList(parcelas);
+            mAdapter.submitList(reservas);
         });
 
         mOrdenarPrecio = findViewById(R.id.buttonPrecio);
@@ -82,37 +82,37 @@ public class Reservapad extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case INSERT_ID:
-                createParcela();
+                createReserva();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
      public boolean onContextItemSelected(MenuItem item) {
-        Parcela current = mAdapter.getCurrent();
+        Reserva current = mAdapter.getCurrent();
         switch (item.getItemId()) {
             case DELETE_ID:
                 Toast.makeText(
                         getApplicationContext(),
                         "Deleting " + current.getName(),
                         Toast.LENGTH_LONG).show();
-                mParcelaViewModel.delete(current);
+                mReservaViewModel.delete(current);
                 return true;
             case EDIT_ID:
-                editParcela(current);
+                editReserva(current);
                 return true;
         }
         return super.onContextItemSelected(item);
     }
 
-    private void createParcela() {
-        mStartCreateNote.launch(new Intent(this, ParcelaEdit.class));
+    private void createReserva() {
+        mStartCreateNote.launch(new Intent(this, ReservaEdit.class));
     }
 
     ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResult() {
         @Override
-        public void process(Bundle extras, Parcela parcela) {
-            mParcelaViewModel.insert(parcela);
+        public void process(Bundle extras, Reserva reserva) {
+            mReservaViewModel.insert(reserva);
         }
     });
 
@@ -131,26 +131,26 @@ public class Reservapad extends AppCompatActivity {
                 });
     }
 
-    private void editParcela(Parcela current) {
+    private void editReserva(Reserva current) {
         Intent intent = new Intent(this, ParcelaEdit.class);
-        intent.putExtra(ParcelaEdit.PARCELA_NAME, current.getName());
-        intent.putExtra(ParcelaEdit.PARCELA_DESCRIPCION, current.getDescripcion());
-        intent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, current.getOcupantes());
-        intent.putExtra(ParcelaEdit.PARCELA_PRECIO, current.getPrecio());
+        intent.putExtra(ReservaEdit.PARCELA_NAME, current.getName());
+        intent.putExtra(ReservaEdit.PARCELA_DESCRIPCION, current.getDescripcion());
+        intent.putExtra(ReservaEdit.PARCELA_OCUPANTES, current.getOcupantes());
+        intent.putExtra(ReservaEdit.PARCELA_PRECIO, current.getPrecio());
         mStartUpdateParcela.launch(intent);
     }
 
     ActivityResultLauncher<Intent> mStartUpdateParcela = newActivityResultLauncher(new ExecuteActivityResult() {
         @Override
-        public void process(Bundle extras, Parcela parcela) {
+        public void process(Bundle extras, Reserva reserva) {
             String name = ParcelaEdit.PARCELA_NAME;
             parcela.setName(name);
-            mParcelaViewModel.update(parcela);
+            mReservaViewModel.update(reserva);
         }
-    });
+    });*/
 
 }
-
+/*
 interface ExecuteActivityResultReserva {
     void process(Bundle extras, Reserva reserva);
-}
+}*/

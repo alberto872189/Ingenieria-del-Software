@@ -1,5 +1,7 @@
 package es.unizar.eina.camping.ui;
 
+import static java.lang.Integer.valueOf;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import es.unizar.eina.camping.R;
+import es.unizar.eina.camping.database.Parcela;
 
 /** Pantalla utilizada para la creación o edición de una nota */
 public class ParcelaCreate extends AppCompatActivity {
@@ -28,6 +31,7 @@ public class ParcelaCreate extends AppCompatActivity {
 
     //private Integer mRowId;
 
+    private ParcelaViewModel mParcelaViewModel;
     Button mSaveButton;
     Button mCancelButton;
 
@@ -49,11 +53,13 @@ public class ParcelaCreate extends AppCompatActivity {
                 setResult(RESULT_CANCELED, replyIntent);
                 Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
             } else {
+                Parcela parcela = new Parcela(mTitleText.getText().toString(), mBodyText.getText().toString(), Double.valueOf(mPriceText.getText().toString()), Integer.valueOf(mMaxOcupantesText.getText().toString()));
+                mParcelaViewModel.insert(parcela);
                 replyIntent.putExtra(ParcelaCreate.PARCELA_TITLE, mTitleText.getText().toString());
                 replyIntent.putExtra(ParcelaCreate.PARCELA_BODY, mBodyText.getText().toString());
                 replyIntent.putExtra(ParcelaCreate.PARCELA_OCUPANTES, mMaxOcupantesText.getText().toString());
                 replyIntent.putExtra(ParcelaCreate.PARCELA_PRECIO, mPriceText.getText().toString());
-               /* if (mRowId!=null) {
+                /*if (mRowId!=null) {
                     replyIntent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, mRowId.intValue());
                 }*/
                 setResult(RESULT_OK, replyIntent);

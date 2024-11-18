@@ -49,17 +49,17 @@ public class ParcelaListAdapter extends ListAdapter<Parcela, ParcelaViewHolder> 
     }
 
 
-    static class NoteDiff extends DiffUtil.ItemCallback<Parcela> {
+    static class ParcelaDiff extends DiffUtil.ItemCallback<Parcela> {
 
         @Override
         public boolean areItemsTheSame(@NonNull Parcela oldItem, @NonNull Parcela newItem) {
-            //android.util.Log.d ( "NoteDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));
+            //android.util.Log.d ( "ParcelaDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));
             return oldItem.getName() == newItem.getName();
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull Parcela oldItem, @NonNull Parcela newItem) {
-            //android.util.Log.d ( "NoteDiff" , "areContentsTheSame " + oldItem.getTitle() + " vs " + newItem.getTitle() + " " + oldItem.getTitle().equals(newItem.getTitle()));
+            //android.util.Log.d ( "ParcelaDiff" , "areContentsTheSame " + oldItem.getTitle() + " vs " + newItem.getTitle() + " " + oldItem.getTitle().equals(newItem.getTitle()));
             // We are just worried about differences in visual representation, i.e. changes in the title
             return oldItem.getName().equals(newItem.getName());
         }

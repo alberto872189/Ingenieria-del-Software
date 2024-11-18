@@ -12,19 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import es.unizar.eina.camping.R;
 
 class ReservaViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-    private final TextView mNoteItemView;
+    private final TextView mReservaItemView;
 
 
 
     private ReservaViewHolder(View itemView) {
         super(itemView);
-        mNoteItemView = itemView.findViewById(R.id.textView);
+        mReservaItemView = itemView.findViewById(R.id.textView);
 
         itemView.setOnCreateContextMenuListener(this);
     }
 
     public void bind(String text) {
-        mNoteItemView.setText(text);
+        mReservaItemView.setText(text);
     }
 
     static ReservaViewHolder create(ViewGroup parent) {
@@ -37,8 +37,8 @@ class ReservaViewHolder extends RecyclerView.ViewHolder implements View.OnCreate
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         //super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(Menu.NONE, Parcelapad.DELETE_ID, Menu.NONE, R.string.menu_delete);
-        menu.add(Menu.NONE, Parcelapad.EDIT_ID, Menu.NONE, R.string.menu_edit);
+        menu.add(Menu.NONE, Reservapad.DELETE_ID, Menu.NONE, R.string.menu_delete);
+        menu.add(Menu.NONE, Reservapad.EDIT_ID, Menu.NONE, R.string.menu_edit);
     }
 
 }
