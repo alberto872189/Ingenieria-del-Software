@@ -17,9 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import es.unizar.eina.camping.R;
 import es.unizar.eina.camping.database.Parcela;
+import es.unizar.eina.camping.database.Reserva;
 
 /** Pantalla principal de la aplicación Parcelapad */
-public class Parcelapad extends AppCompatActivity {
+public class Reservapad extends AppCompatActivity {
     private ParcelaViewModel mParcelaViewModel;
 
     static final int INSERT_ID = Menu.FIRST;

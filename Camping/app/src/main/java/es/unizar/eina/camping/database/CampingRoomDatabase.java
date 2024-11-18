@@ -11,10 +11,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Parcela.class}, version = 1, exportSchema = false)
+@Database(entities = {Parcela.class, Reserva.class, Parcela_Reserva.class}, version = 1, exportSchema = false)
 public abstract class CampingRoomDatabase extends RoomDatabase {
 
     public abstract ParcelaDao ParcelaDao();
+    public abstract ReservaDao ReservaDao();
+    public abstract ParcelaReservaDao ParcelaReservaDao();
 
     private static volatile CampingRoomDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
@@ -26,7 +28,7 @@ public abstract class CampingRoomDatabase extends RoomDatabase {
             synchronized (CampingRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    CampingRoomDatabase.class, "note_database")
+                                    CampingRoomDatabase.class, "camping_database")
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }

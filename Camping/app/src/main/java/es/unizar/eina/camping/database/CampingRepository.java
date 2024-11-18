@@ -20,8 +20,10 @@ public class CampingRepository {
 
     private final ParcelaDao mParcelaDao;
     private final ReservaDao mReservaDao;
+    private final ParcelaReservaDao mParcelaReservaDao;
     private final LiveData<List<Parcela>> mAllParcelas;
-    private final LiveData<List<Reserva>> mAllRerervas;
+    private final LiveData<List<Reserva>> mAllReservas;
+    private final LiveData<List<Parcela_Reserva>> mAllParcelaReserva;
 
     private final long TIMEOUT = 15000;
 
@@ -34,8 +36,11 @@ public class CampingRepository {
     public CampingRepository(Application application) {
         CampingRoomDatabase db = CampingRoomDatabase.getDatabase(application);
         mParcelaDao = db.ParcelaDao();
+        mReservaDao = db.ReservaDao();
+        mParcelaReservaDao = db.ParcelaReservaDao();
         mAllParcelas = mParcelaDao.getOrderedParcelasName();
-        mAllRerervas = mReservaDao.getOrderedReservasName();
+        mAllReservas = mReservaDao.getOrderedReservasName();
+        mAllParcelaReserva = mParcelaReservaDao.getOrderedParcelaReserva();
     }
 
     /** Devuelve un objeto de tipo LiveData con todas las notas.

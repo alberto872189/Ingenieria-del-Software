@@ -22,22 +22,22 @@ public class Reserva {
     @ColumnInfo(name = "fechaSalida")
     private String fechaSalida;
 
-    @ColumnInfo(name = "parcelas")
+    /*@ColumnInfo(name = "parcelas")
     private String[] parcelas;
 
     @ColumnInfo(name="ocupantesPorParcela")
     private Integer[] ocupantesPorParcela;
 
     @ColumnInfo(name="precio")
-    private Double precio;
+    private Double precio;*/
 
-    public Reserva(@NonNull String name, String movil, String fechaEntrada, String fechaSalida, String[] parcelas, Integer[] ocupantesPorParcela) {
+    public Reserva(@NonNull String name, String movil, String fechaEntrada, String fechaSalida/*, String[] parcelas, Integer[] ocupantesPorParcela*/) {
         this.name = name;
         this.movil = movil;
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
-        this.parcelas = parcelas;
-        this.ocupantesPorParcela = ocupantesPorParcela;
+        /*this.parcelas = parcelas;
+        this.ocupantesPorParcela = ocupantesPorParcela;*/
     }
 
     /** Devuelve el título de la nota */
@@ -47,9 +47,9 @@ public class Reserva {
 
     public void setName(String name) {this.name = name;}
 
-    public Double getPrecio() {return this.precio; }
+    /*public Double getPrecio() {return this.precio; }
 
-    public Integer[] getOcupantesPorParcela() {return this.ocupantesPorParcela; }
+    public Integer[] getOcupantesPorParcela() {return this.ocupantesPorParcela; }*/
 
     public String getMovil(){
         return this.movil;
@@ -59,6 +59,6 @@ public class Reserva {
 
     public String getFechaSalida() {return this.fechaSalida; }
 
-    public String[] getParcelas() {return this.parcelas; }
+    //public String[] getParcelas() {return this.parcelas; }
 
 }
