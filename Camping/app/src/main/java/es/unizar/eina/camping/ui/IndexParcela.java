@@ -14,7 +14,6 @@ import java.util.List;
 
 import es.unizar.eina.camping.R;
 import es.unizar.eina.camping.database.Parcela;
-import es.unizar.eina.camping.database.ParcelaDao;
 
 public class IndexParcela extends AppCompatActivity {
     Button mCreateParcelaButton;
@@ -34,8 +33,6 @@ public class IndexParcela extends AppCompatActivity {
 
         mCreateParcelaButton.setOnClickListener(view -> {
             createParcela();
-            //Intent intent = new Intent(IndexParcela.this, ParcelaCreate.class);
-            //startActivity(intent);
         });
 
         mVerParcelaButton.setOnClickListener(view -> {
