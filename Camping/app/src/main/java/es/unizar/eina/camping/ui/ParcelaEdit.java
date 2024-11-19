@@ -54,13 +54,12 @@ public class ParcelaEdit extends AppCompatActivity {
                 setResult(RESULT_CANCELED, replyIntent);
                 Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
             } else {
-                replyIntent.putExtra(ParcelaEdit.PARCELA_NAME, mTitleText.getText().toString());
                 replyIntent.putExtra(ParcelaEdit.PARCELA_DESCRIPCION, mBodyText.getText().toString());
                 replyIntent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, mMaxOcupantesText.getText().toString());
                 replyIntent.putExtra(ParcelaEdit.PARCELA_PRECIO, mPriceText.getText().toString());
-               /* if (mRowId!=null) {
-                    replyIntent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, mRowId.intValue());
-                }*/
+                if (mTitleText!=null) {
+                    replyIntent.putExtra(ParcelaEdit.PARCELA_NAME, mTitleText.getText().toString());
+                }
                 setResult(RESULT_OK, replyIntent);
             }
             finish();
@@ -78,15 +77,16 @@ public class ParcelaEdit extends AppCompatActivity {
     }
 
     private void populateFields () {
-        //mRowId = null;
         Bundle extras = getIntent().getExtras();
         if (extras!=null) {
             mTitleText.setText(extras.getString(ParcelaEdit.PARCELA_NAME));
+            android.util.Log.d("title", mTitleText.getText().toString());
             mBodyText.setText(extras.getString(ParcelaEdit.PARCELA_DESCRIPCION));
+            android.util.Log.d("body", mBodyText.getText().toString());
             mMaxOcupantesText.setText(extras.getString(ParcelaEdit.PARCELA_OCUPANTES));
+            android.util.Log.d("ocupantes", mMaxOcupantesText.getText().toString());
             mPriceText.setText(extras.getString(ParcelaEdit.PARCELA_PRECIO));
-            //mRowId = extras.getInt(ParcelaEdit.PARCELA_OCUPANTES);
+            android.util.Log.d("precio", mPriceText.getText().toString());
         }
     }
-
 }

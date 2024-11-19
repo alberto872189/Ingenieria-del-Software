@@ -2,6 +2,7 @@ package es.unizar.eina.camping.ui;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,8 @@ import es.unizar.eina.camping.database.Parcela;
 import es.unizar.eina.camping.R;
 
 import static androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
+
+import java.util.List;
 
 /** Pantalla principal de la aplicación Parcelapad */
 public class Parcelapad extends AppCompatActivity {
@@ -50,12 +53,24 @@ public class Parcelapad extends AppCompatActivity {
             mAdapter.submitList(parcelas);
         });
 
+
         mOrdenarPrecio = findViewById(R.id.buttonPrecio);
         mOrdenarID = findViewById(R.id.buttonID);
         mOrdenarOcupantes = findViewById(R.id.buttonOcupantes);
 
         mOrdenarPrecio.setOnClickListener(view -> {
+            //DEBUG LOG
+            /*LiveData<List<Parcela>> lista = mParcelaViewModel.getAllParcelas();
 
+            if (lista.getValue() != null) {
+                for (Parcela p : lista.getValue()) {
+                    android.util.Log.d("Ocupantes ", p.getOcupantes().toString());
+                    android.util.Log.d("Precio ", p.getPrecio().toString());
+                }
+            }
+            else {
+                android.util.Log.d("null", "lista null");
+            }*/
         });
 
         mOrdenarID.setOnClickListener(view -> {

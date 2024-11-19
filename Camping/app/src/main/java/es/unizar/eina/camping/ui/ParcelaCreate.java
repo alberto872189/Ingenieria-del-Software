@@ -12,7 +12,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import es.unizar.eina.camping.R;
+import es.unizar.eina.camping.database.CampingRoomDatabase;
+import es.unizar.eina.camping.database.CampingRoomDatabase_Impl;
 import es.unizar.eina.camping.database.Parcela;
+import es.unizar.eina.camping.database.ParcelaDao;
+import es.unizar.eina.camping.database.ParcelaDao_Impl;
 
 /** Pantalla utilizada para la creación o edición de una nota */
 public class ParcelaCreate extends AppCompatActivity {
@@ -31,7 +35,6 @@ public class ParcelaCreate extends AppCompatActivity {
 
     //private Integer mRowId;
 
-    private ParcelaViewModel mParcelaViewModel;
     Button mSaveButton;
     Button mCancelButton;
 
@@ -53,8 +56,17 @@ public class ParcelaCreate extends AppCompatActivity {
                 setResult(RESULT_CANCELED, replyIntent);
                 Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
             } else {
+                /*android.util.Log.d("precio", mPriceText.getText().toString());
+                android.util.Log.d("ocupantes", mMaxOcupantesText.getText().toString());
+                android.util.Log.d("body", mBodyText.getText().toString());
+                android.util.Log.d("title", mTitleText.getText().toString());*/
                 Parcela parcela = new Parcela(mTitleText.getText().toString(), mBodyText.getText().toString(), Double.valueOf(mPriceText.getText().toString()), Integer.valueOf(mMaxOcupantesText.getText().toString()));
-                mParcelaViewModel.insert(parcela);
+                /*android.util.Log.d("precio", parcela.getPrecio().toString());
+                android.util.Log.d("ocupantes", parcela.getOcupantes().toString());
+                android.util.Log.d("body", parcela.getDescripcion());
+                android.util.Log.d("title", parcela.getName());*/
+                //dao.insert(parcela);
+
                 replyIntent.putExtra(ParcelaCreate.PARCELA_TITLE, mTitleText.getText().toString());
                 replyIntent.putExtra(ParcelaCreate.PARCELA_BODY, mBodyText.getText().toString());
                 replyIntent.putExtra(ParcelaCreate.PARCELA_OCUPANTES, mMaxOcupantesText.getText().toString());

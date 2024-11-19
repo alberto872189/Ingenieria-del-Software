@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import es.unizar.eina.camping.R;
 
 class ReservaViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-    private final TextView mReservaItemView;
+   private final TextView mReservaItemView;
 
 
 
@@ -37,8 +37,7 @@ class ReservaViewHolder extends RecyclerView.ViewHolder implements View.OnCreate
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         //super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(Menu.NONE, Reservapad.DELETE_ID, Menu.NONE, R.string.menu_delete);
-        menu.add(Menu.NONE, Reservapad.EDIT_ID, Menu.NONE, R.string.menu_edit);
+     /*   menu.add(Menu.NONE, Reservapad.DELETE_ID, Menu.NONE, R.string.menu_delete);
+        menu.add(Menu.NONE, Reservapad.EDIT_ID, Menu.NONE, R.string.menu_edit);*/
     }
-
 }
