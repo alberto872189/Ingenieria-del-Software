@@ -49,7 +49,7 @@ public class IndexParcela extends AppCompatActivity {
     }
 
     private void createParcela() {
-        mStartCreateParcela.launch(new Intent(IndexParcela.this, ParcelaEdit.class));
+        mStartCreateParcela.launch(new Intent(IndexParcela.this, ParcelaCreate.class));
     }
 
     ActivityResultLauncher<Intent> mStartCreateParcela = newActivityResultLauncher(new ExecuteActivityResult() {
