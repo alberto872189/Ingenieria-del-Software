@@ -10,9 +10,11 @@ import androidx.room.PrimaryKey;
 /** Clase anotada como entidad que representa una nota y que consta de título y cuerpo */
 @Entity(tableName = "parcela_reserva", primaryKeys = {"parcelaID", "reservaID"})
 public class Parcela_Reserva {
+    @NonNull
     @ColumnInfo(name = "parcelaID")
     private String parcelaID;
 
+    @NonNull
     @ColumnInfo(name = "reservaID")
     private Integer reservaID;
 
