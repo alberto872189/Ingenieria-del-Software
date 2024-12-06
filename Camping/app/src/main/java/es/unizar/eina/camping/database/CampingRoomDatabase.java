@@ -47,13 +47,15 @@ public abstract class CampingRoomDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 // Populate the database in the background.
                 // If you want to start with more notes, just add them.
-                ParcelaDao dao = INSTANCE.ParcelaDao();
+                /*ParcelaDao dao = INSTANCE.ParcelaDao();
+                ReservaDao dao2 = INSTANCE.ReservaDao();
                 dao.deleteAll();
+                dao2.deleteAll();
 
                 Parcela parcela = new Parcela("Parcela 1's title", "Parcela 1's body", 2.5, 5);
                 dao.insert(parcela);
                 parcela = new Parcela("Parcela 2's title", "Parcela 2's body", 3.5, 5);
-                dao.insert(parcela);
+                dao.insert(parcela);*/
             });
         }
     };

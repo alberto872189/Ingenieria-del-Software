@@ -20,7 +20,7 @@ public class IndexReserva extends AppCompatActivity {
         mVerReservaButton = findViewById(R.id.VerReservasButton);
 
         mCreateReservaButton.setOnClickListener(view -> {
-            Intent intent = new Intent(IndexReserva.this, Parcelapad.class); //CAMBIAR POR CREARRESERVA
+            Intent intent = new Intent(IndexReserva.this, ReservaCreate.class); //CAMBIAR POR CREARRESERVA
             startActivity(intent);
         });
 

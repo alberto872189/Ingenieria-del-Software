@@ -8,7 +8,10 @@ import androidx.room.PrimaryKey;
 /** Clase anotada como entidad que representa una nota y que consta de título y cuerpo */
 @Entity(tableName = "reserva")
 public class Reserva {
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private int id;
+
     @NonNull
     @ColumnInfo(name = "name")
     private String name;
@@ -22,34 +25,35 @@ public class Reserva {
     @ColumnInfo(name = "fechaSalida")
     private String fechaSalida;
 
-    /*@ColumnInfo(name = "parcelas")
-    private String[] parcelas;
-
-    @ColumnInfo(name="ocupantesPorParcela")
-    private Integer[] ocupantesPorParcela;
-
     @ColumnInfo(name="precio")
-    private Double precio;*/
+    private Double precio;
 
-    public Reserva(@NonNull String name, String movil, String fechaEntrada, String fechaSalida/*, String[] parcelas, Integer[] ocupantesPorParcela*/) {
+    public Reserva(@NonNull String name, String movil, String fechaEntrada, String fechaSalida, Double precio) {
         this.name = name;
         this.movil = movil;
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
-        /*this.parcelas = parcelas;
-        this.ocupantesPorParcela = ocupantesPorParcela;*/
+        this.precio = precio;
     }
 
-    /** Devuelve el título de la nota */
+    /** Devuelve el identificador de la reserva */
+    public int getId(){
+        return this.id;
+    }
+
+    /** Permite actualizar el identificador de la reserva */
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName(){
         return this.name;
     }
 
     public void setName(String name) {this.name = name;}
 
-    /*public Double getPrecio() {return this.precio; }
+    public Double getPrecio() {return this.precio; }
 
-    public Integer[] getOcupantesPorParcela() {return this.ocupantesPorParcela; }*/
 
     public String getMovil(){
         return this.movil;
@@ -59,6 +63,5 @@ public class Reserva {
 
     public String getFechaSalida() {return this.fechaSalida; }
 
-    //public String[] getParcelas() {return this.parcelas; }
 
 }

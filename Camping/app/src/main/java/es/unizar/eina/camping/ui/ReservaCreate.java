@@ -14,17 +14,19 @@ import es.unizar.eina.camping.R;
 /** Pantalla utilizada para la creación o edición de una nota */
 public class ReservaCreate extends AppCompatActivity {
 
-  /*  public static final String RESERVA_TITLE = "title";
-    public static final String RESERVA_BODY = "body";
-    public static final String RESERVA_OCUPANTES = "ocupantes";
-    public static final String RESERVA_PRECIO = "precio";
+    public static final String RESERVA_ID = "id";
+    public static final String RESERVA_NAME = "name";
+    public static final String RESERVA_PHONE = "phone";
+    public static final String RESERVA_ENTRADA = "entrada";
+    public static final String RESERVA_SALIDA = "salida";
 
-    private EditText mTitleText;
+    private int mRowId;
+    private EditText mNameText;
 
-    private EditText mBodyText;
+    private EditText mMovilText;
 
-    private EditText mMaxOcupantesText;
-    private EditText mPriceText;
+    private EditText mEntradaText;
+    private EditText mSalidaText;
 
     //private Integer mRowId;
 
@@ -35,27 +37,26 @@ public class ReservaCreate extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parcelacreate);
+        setContentView(R.layout.activity_reservacreate);
 
-        mTitleText = findViewById(R.id.title);
-        mBodyText = findViewById(R.id.body);
-        mMaxOcupantesText = findViewById(R.id.n_ocupantes);
-        mPriceText = findViewById(R.id.precio);
+        mNameText = findViewById(R.id.name);
+        mMovilText = findViewById(R.id.phone);
+        mEntradaText = findViewById(R.id.entrada);
+        mSalidaText = findViewById(R.id.salida);
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
-            if (TextUtils.isEmpty(mTitleText.getText())) {
+            if (TextUtils.isEmpty(mNameText.getText())) {
                 setResult(RESULT_CANCELED, replyIntent);
                 Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
             } else {
-                replyIntent.putExtra(ReservaCreate.PARCELA_TITLE, mTitleText.getText().toString());
-                replyIntent.putExtra(ReservaCreate.PARCELA_BODY, mBodyText.getText().toString());
-                replyIntent.putExtra(ReservaCreate.PARCELA_OCUPANTES, mMaxOcupantesText.getText().toString());
-                replyIntent.putExtra(ReservaCreate.PARCELA_PRECIO, mPriceText.getText().toString());
-               /* if (mRowId!=null) {
-                    replyIntent.putExtra(ParcelaEdit.PARCELA_OCUPANTES, mRowId.intValue());
-                }
+                replyIntent.putExtra(ReservaCreate.RESERVA_NAME, mNameText.getText().toString());
+                replyIntent.putExtra(ReservaCreate.RESERVA_PHONE, mMovilText.getText().toString());
+                replyIntent.putExtra(ReservaCreate.RESERVA_ENTRADA, mEntradaText.getText().toString());
+                replyIntent.putExtra(ReservaCreate.RESERVA_SALIDA, mSalidaText.getText().toString());
+
+                replyIntent.putExtra(ReservaCreate.RESERVA_ID, String.valueOf(mRowId));
                 setResult(RESULT_OK, replyIntent);
             }
             finish();
@@ -76,12 +77,12 @@ public class ReservaCreate extends AppCompatActivity {
         //mRowId = null;
         Bundle extras = getIntent().getExtras();
         if (extras!=null) {
-            mTitleText.setText(extras.getString(ReservaCreate.PARCELA_TITLE));
-            mBodyText.setText(extras.getString(ReservaCreate.PARCELA_BODY));
-            mMaxOcupantesText.setText(extras.getString(ReservaCreate.PARCELA_OCUPANTES));
-            mPriceText.setText(extras.getString(ReservaCreate.PARCELA_PRECIO));
-            //mRowId = extras.getInt(ParcelaEdit.PARCELA_OCUPANTES);
+            mNameText.setText(extras.getString(ReservaCreate.RESERVA_NAME));
+            mMovilText.setText(extras.getString(ReservaCreate.RESERVA_PHONE));
+            mEntradaText.setText(extras.getString(ReservaCreate.RESERVA_ENTRADA));
+            mSalidaText.setText(extras.getString(ReservaCreate.RESERVA_SALIDA));
+            mRowId = extras.getInt(ReservaCreate.RESERVA_ID);
         }
-    }*/
+    }
 
 }
