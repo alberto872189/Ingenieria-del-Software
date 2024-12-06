@@ -1,8 +1,10 @@
 package es.unizar.eina.send;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.content.Intent;
+import android.widget.Toast;
 
 /** Concrete implementor utilizando la aplicación de WhatsApp. No funciona en el emulador si no se ha configurado previamente */
 public class WhatsAppImplementor implements SendImplementor{
@@ -34,10 +36,23 @@ public class WhatsAppImplementor implements SendImplementor{
     */
    public void send (String phone, String message) {
       Uri smsUri= Uri.parse("sms:" + phone);
-      Intent sendIntent = new Intent(Intent.ACTION_SENDTO, smsUri);
-      sendIntent.putExtra(Intent.EXTRA_TEXT, message);
-      sendIntent.setPackage("com.whatsapp");
-      getSourceActivity().startActivity(sendIntent);
+      PackageManager pm = getSourceActivity().getPackageManager();
+      boolean app_installed = false;
+      try {
+         pm.getPackageInfo("com.whatsapp", PackageManager. GET_ACTIVITIES);
+         app_installed = true;
+      } catch (PackageManager.NameNotFoundException e) {
+         app_installed = false;
+      } if (app_installed) {
+         // Crear intent y lanzar actividad ...
+         Intent sendIntent = new Intent(Intent.ACTION_SENDTO, smsUri);
+         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+         sendIntent.setPackage("com.whatsapp");
+         getSourceActivity().startActivity(sendIntent);
+      } else {
+         Toast.makeText(getSourceActivity(), "WhatsApp not → Installed", Toast.LENGTH_SHORT).show();
+      }
+
    }
 
 }

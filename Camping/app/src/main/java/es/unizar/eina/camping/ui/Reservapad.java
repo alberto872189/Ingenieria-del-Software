@@ -8,6 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import es.unizar.eina.camping.R;
 import es.unizar.eina.camping.database.Reserva;
+import es.unizar.eina.send.SendAbstraction;
+import es.unizar.eina.send.SendAbstractionImpl;
+import es.unizar.eina.send.SendImplementor;
 
 /** Pantalla principal de la aplicación Parcelapad */
 public class Reservapad extends AppCompatActivity {
@@ -25,6 +30,7 @@ public class Reservapad extends AppCompatActivity {
     static final int INSERT_ID = Menu.FIRST;
     static final int DELETE_ID = Menu.FIRST + 1;
     static final int EDIT_ID = Menu.FIRST + 2;
+    static final int SEND_ID = Menu.FIRST + 3;
 
     RecyclerView mRecyclerView;
 
@@ -33,6 +39,8 @@ public class Reservapad extends AppCompatActivity {
     Button mOrdenarNombre;
     Button mOrdenarMovil;
     Button mOrdenarFecha;
+
+    SendAbstraction send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +85,8 @@ public class Reservapad extends AppCompatActivity {
 
         });
 
+        send = new SendAbstractionImpl(this, "Whatsapp");
+
         // It doesn't affect if we comment the following instruction
         registerForContextMenu(mRecyclerView);
 
@@ -110,6 +120,14 @@ public class Reservapad extends AppCompatActivity {
                 return true;
             case EDIT_ID:
                 editReserva(current);
+                return true;
+            case SEND_ID:
+                String mensaje = "Datos reserva" +"\n" +
+                        "Nombre" + current.getName() + "\n" +
+                        "Móvil" + current.getMovil() + "\n" +
+                        "Fecha de entrada" + current.getFechaEntrada() + "\n" +
+                        "Fecha de salida" + current.getFechaSalida() + "\n";
+                send.send(current.getMovil(), mensaje);
                 return true;
         }
         return super.onContextItemSelected(item);
