@@ -59,6 +59,10 @@ public class Parcelapad extends AppCompatActivity {
         mOrdenarOcupantes = findViewById(R.id.buttonOcupantes);
 
         mOrdenarPrecio.setOnClickListener(view -> {
+            mParcelaViewModel.getAllParcelasPrecio().observe(this, parcelas -> {
+                // Update the cached copy of the parcelas in the adapter.
+                mAdapter.submitList(parcelas);
+            });
             //DEBUG LOG
             /*LiveData<List<Parcela>> lista = mParcelaViewModel.getAllParcelas();
 
@@ -74,10 +78,17 @@ public class Parcelapad extends AppCompatActivity {
         });
 
         mOrdenarID.setOnClickListener(view -> {
-
+            mParcelaViewModel.getAllParcelasName().observe(this, parcelas -> {
+                // Update the cached copy of the parcelas in the adapter.
+                mAdapter.submitList(parcelas);
+            });
         });
 
         mOrdenarOcupantes.setOnClickListener(view -> {
+            mParcelaViewModel.getAllParcelasOcupantes().observe(this, parcelas -> {
+                // Update the cached copy of the parcelas in the adapter.
+                mAdapter.submitList(parcelas);
+            });
 
         });
 
