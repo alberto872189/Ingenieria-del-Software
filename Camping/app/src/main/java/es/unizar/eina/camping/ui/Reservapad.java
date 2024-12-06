@@ -116,10 +116,10 @@ public class Reservapad extends AppCompatActivity {
     }
 
     private void createReserva() {
-        mStartCreateNote.launch(new Intent(this, ReservaCreate.class));
+        mStartCreateReserva.launch(new Intent(this, ReservaCreate.class));
     }
 
-    ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResultReserva() {
+    ActivityResultLauncher<Intent> mStartCreateReserva = newActivityResultLauncher(new ExecuteActivityResultReserva() {
         @Override
         public void process(Bundle extras, Reserva reserva) {
             mReservaViewModel.insert(reserva);
@@ -143,7 +143,7 @@ public class Reservapad extends AppCompatActivity {
     }
 
     private void editReserva(Reserva current) {
-        Intent intent = new Intent(this, ParcelaEdit.class);
+        Intent intent = new Intent(this, ReservaEdit.class);
         intent.putExtra(ReservaEdit.RESERVA_NAME, current.getName());
         intent.putExtra(ReservaEdit.RESERVA_PHONE, current.getMovil());
         intent.putExtra(ReservaEdit.RESERVA_ENTRADA, current.getFechaEntrada());

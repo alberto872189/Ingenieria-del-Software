@@ -28,7 +28,13 @@
             android:name=".ui.IndexReserva"
             android:exported="false"/>
         <activity
+            android:name=".ui.ReservaEdit"
+            android:exported="false" />
+        <activity
             android:name=".ui.ReservaCreate"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Reservapad"
             android:exported="false" />
         <activity
             android:name=".ui.Index"
