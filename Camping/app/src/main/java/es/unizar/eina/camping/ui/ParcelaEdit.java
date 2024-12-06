@@ -76,9 +76,9 @@ public class ParcelaEdit extends AppCompatActivity {
             android.util.Log.d("title", mTitleText.getText().toString());
             mBodyText.setText(extras.getString(ParcelaEdit.PARCELA_DESCRIPCION));
             android.util.Log.d("body", mBodyText.getText().toString());
-            mMaxOcupantesText.setText(extras.getString(ParcelaEdit.PARCELA_OCUPANTES));
+            mMaxOcupantesText.setText(String.valueOf(extras.getInt(ParcelaEdit.PARCELA_OCUPANTES)));
             android.util.Log.d("ocupantes", mMaxOcupantesText.getText().toString());
-            mPriceText.setText(extras.getString(ParcelaEdit.PARCELA_PRECIO));
+            mPriceText.setText(String.valueOf(extras.getDouble(ParcelaEdit.PARCELA_PRECIO)));
             android.util.Log.d("precio", mPriceText.getText().toString());
         }
     }
