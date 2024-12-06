@@ -20,7 +20,7 @@ public class ReservaCreate extends AppCompatActivity {
     public static final String RESERVA_ENTRADA = "entrada";
     public static final String RESERVA_SALIDA = "salida";
 
-    private int mRowId;
+    private Integer mRowId;
     private EditText mNameText;
 
     private EditText mMovilText;
@@ -74,7 +74,7 @@ public class ReservaCreate extends AppCompatActivity {
     }
 
     private void populateFields () {
-        //mRowId = null;
+        mRowId = null;
         Bundle extras = getIntent().getExtras();
         if (extras!=null) {
             mNameText.setText(extras.getString(ReservaCreate.RESERVA_NAME));

@@ -16,12 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import es.unizar.eina.camping.R;
-import es.unizar.eina.camping.database.Parcela;
 import es.unizar.eina.camping.database.Reserva;
 
 /** Pantalla principal de la aplicación Parcelapad */
 public class Reservapad extends AppCompatActivity {
-    /*private ReservaViewModel mReservaViewModel;
+    private ReservaViewModel mReservaViewModel;
 
     static final int INSERT_ID = Menu.FIRST;
     static final int DELETE_ID = Menu.FIRST + 1;
@@ -31,14 +30,14 @@ public class Reservapad extends AppCompatActivity {
 
     ReservaListAdapter mAdapter;
 
-    Button mOrdenarPrecio;
-    Button mOrdenarID;
-    Button mOrdenarOcupantes;
+    Button mOrdenarNombre;
+    Button mOrdenarMovil;
+    Button mOrdenarFecha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parcelapad);
+        setContentView(R.layout.activity_reservapad);
         mRecyclerView = findViewById(R.id.recyclerview);
         mAdapter = new ReservaListAdapter(new ReservaListAdapter.ReservaDiff());
         mRecyclerView.setAdapter(mAdapter);
@@ -51,19 +50,30 @@ public class Reservapad extends AppCompatActivity {
             mAdapter.submitList(reservas);
         });
 
-        mOrdenarPrecio = findViewById(R.id.buttonPrecio);
-        mOrdenarID = findViewById(R.id.buttonID);
-        mOrdenarOcupantes = findViewById(R.id.buttonOcupantes);
+        mOrdenarNombre = findViewById(R.id.buttonNombre);
+        mOrdenarMovil = findViewById(R.id.buttonMovil);
+        mOrdenarFecha = findViewById(R.id.buttonFecha);
 
-        mOrdenarPrecio.setOnClickListener(view -> {
+        mOrdenarNombre.setOnClickListener(view -> {
+            mReservaViewModel.getAllReservasName().observe(this, reservas -> {
+                // Update the cached copy of the parcelas in the adapter.
+                mAdapter.submitList(reservas);
+            });
+        });
+
+        mOrdenarMovil.setOnClickListener(view -> {
+            mReservaViewModel.getAllReservasMovil().observe(this, reservas -> {
+                // Update the cached copy of the parcelas in the adapter.
+                mAdapter.submitList(reservas);
+            });
 
         });
 
-        mOrdenarID.setOnClickListener(view -> {
-
-        });
-
-        mOrdenarOcupantes.setOnClickListener(view -> {
+        mOrdenarFecha.setOnClickListener(view -> {
+            mReservaViewModel.getAllReservasFecha().observe(this, reservas -> {
+                // Update the cached copy of the parcelas in the adapter.
+                mAdapter.submitList(reservas);
+            });
 
         });
 
@@ -106,51 +116,53 @@ public class Reservapad extends AppCompatActivity {
     }
 
     private void createReserva() {
-        mStartCreateNote.launch(new Intent(this, ReservaEdit.class));
+        mStartCreateNote.launch(new Intent(this, ReservaCreate.class));
     }
 
-    ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResult() {
+    ActivityResultLauncher<Intent> mStartCreateNote = newActivityResultLauncher(new ExecuteActivityResultReserva() {
         @Override
         public void process(Bundle extras, Reserva reserva) {
             mReservaViewModel.insert(reserva);
         }
     });
 
-    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResult executable) {
+    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResultReserva executable) {
         return registerForActivityResult(
                 new StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Bundle extras = result.getData().getExtras();
-                        Parcela parcela = new Parcela(extras.getString(ParcelaEdit.PARCELA_NAME),
-                                extras.getString(ParcelaEdit.PARCELA_DESCRIPCION),
-                                Double.valueOf(extras.getString(ParcelaEdit.PARCELA_PRECIO)),
-                                Integer.valueOf(extras.getString(ParcelaEdit.PARCELA_OCUPANTES)));
-                        executable.process(extras, parcela);
+                        Reserva reserva = new Reserva(extras.getString(ReservaEdit.RESERVA_NAME),
+                                extras.getString(ReservaEdit.RESERVA_PHONE),
+                                extras.getString(ReservaEdit.RESERVA_ENTRADA),
+                                extras.getString(ReservaEdit.RESERVA_SALIDA),
+                                1.0); //Rellenar con precio
+                        executable.process(extras, reserva);
                     }
                 });
     }
 
     private void editReserva(Reserva current) {
         Intent intent = new Intent(this, ParcelaEdit.class);
-        intent.putExtra(ReservaEdit.PARCELA_NAME, current.getName());
-        intent.putExtra(ReservaEdit.PARCELA_DESCRIPCION, current.getDescripcion());
-        intent.putExtra(ReservaEdit.PARCELA_OCUPANTES, current.getOcupantes());
-        intent.putExtra(ReservaEdit.PARCELA_PRECIO, current.getPrecio());
-        mStartUpdateParcela.launch(intent);
+        intent.putExtra(ReservaEdit.RESERVA_NAME, current.getName());
+        intent.putExtra(ReservaEdit.RESERVA_PHONE, current.getMovil());
+        intent.putExtra(ReservaEdit.RESERVA_ENTRADA, current.getFechaEntrada());
+        intent.putExtra(ReservaEdit.RESERVA_SALIDA, current.getFechaSalida());
+        intent.putExtra("1", current.getPrecio()); //Rellenar con precio
+        mStartUpdateReserva.launch(intent);
     }
 
-    ActivityResultLauncher<Intent> mStartUpdateParcela = newActivityResultLauncher(new ExecuteActivityResult() {
+    ActivityResultLauncher<Intent> mStartUpdateReserva = newActivityResultLauncher(new ExecuteActivityResultReserva() {
         @Override
         public void process(Bundle extras, Reserva reserva) {
-            String name = ParcelaEdit.PARCELA_NAME;
-            parcela.setName(name);
+            String id = ReservaEdit.RESERVA_ID;
+            reserva.setId(Integer.valueOf(id));
             mReservaViewModel.update(reserva);
         }
-    });*/
+    });
 
 }
-/*
+
 interface ExecuteActivityResultReserva {
     void process(Bundle extras, Reserva reserva);
-}*/
+}
