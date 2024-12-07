@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
@@ -29,11 +30,9 @@ public interface ParcelaReservaDao {
     @Query("SELECT * FROM Parcela_Reserva ORDER BY parcelaID")
     LiveData<List<Parcela_Reserva>> getOrderedParcelaReserva();
 
-    /*
-    @Query("SELECT * FROM Parcela_Reserva ORDER BY precio ASC")
-    LiveData<List<Parcela>> getOrderedParcelasPrecio();
+    /*@Transaction
+    @Query("SELECT * FROM Parcela_Reserva")
+    List <ParcelaWithReserva> getParcelaWithReserva();*/
 
-    @Query("SELECT * FROM Parcela ORDER BY ocupantes ASC")
-    LiveData<List<Parcela>> getOrderedParcelasOcupantes();*/
 }
 

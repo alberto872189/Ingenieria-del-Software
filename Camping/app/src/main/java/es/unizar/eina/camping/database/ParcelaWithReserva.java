@@ -7,7 +7,7 @@ import androidx.room.Relation;
 import java.util.List;
 
 public class ParcelaWithReserva {
-    @Embedded
+    /*@Embedded
     Reserva reserva;
 
     @Relation(
@@ -16,5 +16,5 @@ public class ParcelaWithReserva {
             associateBy = @Junction(Parcela_Reserva.class)
     )
 
-    public List<Parcela> parcelas;
+    public List<Parcela> parcelas;*/
 }
