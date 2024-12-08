@@ -165,7 +165,7 @@ public class Parcelapad extends AppCompatActivity {
     ActivityResultLauncher<Intent> mStartUpdateParcela = newActivityResultLauncher(new ExecuteActivityResult() {
         @Override
         public void process(Bundle extras, Parcela parcela) {
-            String name = ParcelaEdit.PARCELA_NAME;
+            String name = extras.getString(ParcelaEdit.PARCELA_NAME);
             parcela.setName(name);
             mParcelaViewModel.update(parcela);
         }
