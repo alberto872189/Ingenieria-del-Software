@@ -31,7 +31,8 @@
             android:layout_margin="@dimen/big_padding"
             android:fontFamily="sans-serif-light"
             android:hint="@string/hint_title"
-            android:inputType="textAutoComplete"
+            android:inputType="none"
+            android:enabled="false"
             android:minHeight="@dimen/min_height"
             android:textSize="18sp" />
 
