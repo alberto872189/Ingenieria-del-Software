@@ -46,7 +46,7 @@ public class ReservaCreate extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
-            Intent replyIntent = new Intent();
+            Intent replyIntent = new Intent(this, Parcelapad_reserva.class);
             if (TextUtils.isEmpty(mNameText.getText())) {
                 setResult(RESULT_CANCELED, replyIntent);
                 Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
@@ -57,6 +57,7 @@ public class ReservaCreate extends AppCompatActivity {
                 replyIntent.putExtra(ReservaCreate.RESERVA_SALIDA, mSalidaText.getText().toString());
 
                 replyIntent.putExtra(ReservaCreate.RESERVA_ID, String.valueOf(mRowId));
+                startActivity(replyIntent);
                 setResult(RESULT_OK, replyIntent);
             }
             finish();
