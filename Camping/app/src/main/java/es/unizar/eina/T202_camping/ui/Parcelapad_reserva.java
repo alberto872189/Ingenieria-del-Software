@@ -40,7 +40,7 @@ public class Parcelapad_reserva extends AppCompatActivity {
     Button mSaveButton;
     Button mCancelButton;
 
-    Vector<Parcela> parcelasSeleccionadas;
+    Vector<String> parcelasSeleccionadas;
 
     //Map<String, Integer> ocupantesEnParcelas;
 
@@ -104,7 +104,7 @@ public class Parcelapad_reserva extends AppCompatActivity {
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
             Intent intent = new Intent(this, ReservaOcupantes.class);
-            intent.putExtra("parcelasSeleccionadas", parcelasSeleccionadas);
+            intent.putExtra("parcelasSeleccionadas",  parcelasSeleccionadas);
             Bundle extras = getIntent().getExtras();
             intent.putExtra(ReservaCreate.RESERVA_NAME ,(String)extras.get(ReservaCreate.RESERVA_NAME));
             intent.putExtra(ReservaCreate.RESERVA_PHONE ,(String)extras.get(ReservaCreate.RESERVA_PHONE));
@@ -132,11 +132,11 @@ public class Parcelapad_reserva extends AppCompatActivity {
         Parcela current = mAdapter.getCurrent();
         switch (item.getItemId()) {
             case EDIT_ID:
-                if(!parcelasSeleccionadas.contains(current)) {
-                    parcelasSeleccionadas.add(current);
+                if(!parcelasSeleccionadas.contains(current.getName())) {
+                    parcelasSeleccionadas.add(current.getName());
                 }
                 else{
-                    parcelasSeleccionadas.remove(current);
+                    parcelasSeleccionadas.remove(current.getName());
                 }
                 return true;
         }

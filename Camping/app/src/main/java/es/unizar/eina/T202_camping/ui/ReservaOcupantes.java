@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import es.unizar.eina.T202_camping.R;
@@ -51,11 +52,12 @@ public class ReservaOcupantes extends AppCompatActivity {
         intent.putExtra(ReservaCreate.RESERVA_ENTRADA ,(String)extras.get(ReservaCreate.RESERVA_ENTRADA));
         intent.putExtra(ReservaCreate.RESERVA_SALIDA ,(String)extras.get(ReservaCreate.RESERVA_SALIDA));*/
 
-        Vector<Parcela> parcelas = (Vector<Parcela>)extras.get("parcelasSeleccionadas");
+        ArrayList<String> parcelas = (ArrayList<String>)extras.get("parcelasSeleccionadas");
         LinearLayout layout = (LinearLayout) findViewById(R.id.holder);
-        for (Parcela parcela : parcelas) {
+        for (String parcela : parcelas) {
+            android.util.Log.d("PARCELASEL", parcela);
             TextView tv = new TextView(this);
-            tv.setText(parcela.getName());
+            tv.setText(parcela);
             EditText et = new EditText(this);
             LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -67,7 +69,7 @@ public class ReservaOcupantes extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
-            Intent replyIntent = new Intent(this, Parcelapad_reserva.class);
+            Intent replyIntent = new Intent();
             replyIntent.putExtra(ReservaOcupantes.RESERVA_NAME, (String)extras.get(ReservaCreate.RESERVA_NAME));
             replyIntent.putExtra(ReservaOcupantes.RESERVA_PHONE, (String)extras.get(ReservaCreate.RESERVA_PHONE));
             replyIntent.putExtra(ReservaOcupantes.RESERVA_ENTRADA, (String)extras.get(ReservaCreate.RESERVA_ENTRADA));
