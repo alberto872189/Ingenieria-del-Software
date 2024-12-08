@@ -1,4 +1,4 @@
-package es.unizar.eina.camping.ui;
+package es.unizar.eina.T202_camping.ui;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
-import es.unizar.eina.camping.database.Parcela;
+import es.unizar.eina.T202_camping.database.Parcela;
 
 public class ParcelaListAdapter extends ListAdapter<Parcela, ParcelaViewHolder> {
     private int position;

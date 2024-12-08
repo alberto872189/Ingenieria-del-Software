@@ -1,4 +1,4 @@
-package es.unizar.eina.camping.ui;
+package es.unizar.eina.T202_camping.ui;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
-import es.unizar.eina.camping.database.Reserva;
+import es.unizar.eina.T202_camping.database.Reserva;
 
 public class ReservaListAdapter extends ListAdapter<Reserva, ReservaViewHolder> {
     private int position;

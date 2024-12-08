@@ -1,4 +1,4 @@
-package es.unizar.eina.camping.ui;
+package es.unizar.eina.T202_camping.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import es.unizar.eina.camping.R;
-import es.unizar.eina.camping.database.Reserva;
+import es.unizar.eina.T202_camping.R;
+import es.unizar.eina.T202_camping.database.Reserva;
 
 public class IndexReserva extends AppCompatActivity {
     Button mCreateReservaButton;

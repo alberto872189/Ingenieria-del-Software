@@ -1,4 +1,4 @@
-package es.unizar.eina.camping.ui;
+package es.unizar.eina.T202_camping.ui;
 
 import android.app.Application;
 
@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import es.unizar.eina.camping.database.CampingRepository;
-import es.unizar.eina.camping.database.Parcela;
+import es.unizar.eina.T202_camping.database.CampingRepository;
+import es.unizar.eina.T202_camping.database.Parcela;
 
 public class ParcelaViewModel extends AndroidViewModel {
 

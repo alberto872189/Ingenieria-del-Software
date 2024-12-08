@@ -1,4 +1,4 @@
-package es.unizar.eina.camping.ui;
+package es.unizar.eina.T202_camping.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import es.unizar.eina.camping.R;
+import es.unizar.eina.T202_camping.R;
 
 public class Index extends AppCompatActivity {
 

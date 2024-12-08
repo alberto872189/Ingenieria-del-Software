@@ -1,4 +1,4 @@
-package es.unizar.eina.camping;
+package es.unizar.eina.T202_camping;
 
 import org.junit.Test;
 

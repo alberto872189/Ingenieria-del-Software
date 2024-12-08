@@ -1,6 +1,6 @@
-package es.unizar.eina.camping.ui;
+package es.unizar.eina.T202_camping.ui;
 
-import static java.lang.Integer.valueOf;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,20 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import es.unizar.eina.camping.R;
-import es.unizar.eina.camping.database.CampingRoomDatabase;
-import es.unizar.eina.camping.database.CampingRoomDatabase_Impl;
-import es.unizar.eina.camping.database.Parcela;
-import es.unizar.eina.camping.database.ParcelaDao;
-import es.unizar.eina.camping.database.ParcelaDao_Impl;
+import es.unizar.eina.T202_camping.R;
 
 /** Pantalla utilizada para la creación o edición de una nota */
-public class ParcelaCreate extends AppCompatActivity {
+public class ParcelaEdit extends AppCompatActivity {
 
-    public static final String PARCELA_TITLE = "title";
-    public static final String PARCELA_BODY = "body";
+    public static final String PARCELA_NAME = "name";
+    public static final String PARCELA_DESCRIPCION = "descripcion";
     public static final String PARCELA_OCUPANTES = "ocupantes";
     public static final String PARCELA_PRECIO = "precio";
 
@@ -40,7 +33,7 @@ public class ParcelaCreate extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parcelacreate);
+        setContentView(R.layout.activity_parcelaedit);
 
         mTitleText = findViewById(R.id.title);
         mBodyText = findViewById(R.id.body);
@@ -79,11 +72,14 @@ public class ParcelaCreate extends AppCompatActivity {
     private void populateFields () {
         Bundle extras = getIntent().getExtras();
         if (extras!=null) {
-            mTitleText.setText(extras.getString(ParcelaCreate.PARCELA_TITLE));
-            mBodyText.setText(extras.getString(ParcelaCreate.PARCELA_BODY));
-            mMaxOcupantesText.setText(extras.getString(ParcelaCreate.PARCELA_OCUPANTES));
-            mPriceText.setText(extras.getString(ParcelaCreate.PARCELA_PRECIO));
+            mTitleText.setText(extras.getString(ParcelaEdit.PARCELA_NAME));
+            android.util.Log.d("title", mTitleText.getText().toString());
+            mBodyText.setText(extras.getString(ParcelaEdit.PARCELA_DESCRIPCION));
+            android.util.Log.d("body", mBodyText.getText().toString());
+            mMaxOcupantesText.setText(String.valueOf(extras.getInt(ParcelaEdit.PARCELA_OCUPANTES)));
+            android.util.Log.d("ocupantes", mMaxOcupantesText.getText().toString());
+            mPriceText.setText(String.valueOf(extras.getDouble(ParcelaEdit.PARCELA_PRECIO)));
+            android.util.Log.d("precio", mPriceText.getText().toString());
         }
     }
-
 }

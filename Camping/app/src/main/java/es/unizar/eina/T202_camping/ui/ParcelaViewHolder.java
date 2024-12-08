@@ -1,4 +1,4 @@
-package es.unizar.eina.camping.ui;
+package es.unizar.eina.T202_camping.ui;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -9,36 +9,37 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import es.unizar.eina.camping.R;
+import es.unizar.eina.T202_camping.R;
 
-class ReservaViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-   private final TextView mReservaItemView;
+class ParcelaViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    private final TextView mNoteItemView;
 
 
 
-    private ReservaViewHolder(View itemView) {
+    private ParcelaViewHolder(View itemView) {
         super(itemView);
-        mReservaItemView = itemView.findViewById(R.id.textView);
+        mNoteItemView = itemView.findViewById(R.id.textView);
 
         itemView.setOnCreateContextMenuListener(this);
     }
 
     public void bind(String text) {
-        mReservaItemView.setText(text);
+        mNoteItemView.setText(text);
     }
 
-    static ReservaViewHolder create(ViewGroup parent) {
+    static ParcelaViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_item, parent, false);
-        return new ReservaViewHolder(view);
+        return new ParcelaViewHolder(view);
     }
 
 
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         //super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(Menu.NONE, Reservapad.DELETE_ID, Menu.NONE, R.string.menu_delete);
-        menu.add(Menu.NONE, Reservapad.EDIT_ID, Menu.NONE, R.string.menu_edit);
-        menu.add(Menu.NONE, Reservapad.SEND_ID, Menu.NONE, R.string.menu_send);
+        menu.add(Menu.NONE, Parcelapad.DELETE_ID, Menu.NONE, R.string.menu_delete);
+        menu.add(Menu.NONE, Parcelapad.EDIT_ID, Menu.NONE, R.string.menu_edit);
     }
+
+
 }

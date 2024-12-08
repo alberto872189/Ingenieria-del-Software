@@ -1,4 +1,4 @@
-package es.unizar.eina.camping.ui;
+package es.unizar.eina.T202_camping.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import es.unizar.eina.camping.R;
+import es.unizar.eina.T202_camping.R;
 
 /** Pantalla utilizada para la creación o edición de una nota */
 public class ReservaCreate extends AppCompatActivity {

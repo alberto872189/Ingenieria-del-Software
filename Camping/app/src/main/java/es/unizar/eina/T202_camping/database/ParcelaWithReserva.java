@@ -1,10 +1,4 @@
-package es.unizar.eina.camping.database;
-
-import androidx.room.Embedded;
-import androidx.room.Junction;
-import androidx.room.Relation;
-
-import java.util.List;
+package es.unizar.eina.T202_camping.database;
 
 public class ParcelaWithReserva {
     /*@Embedded

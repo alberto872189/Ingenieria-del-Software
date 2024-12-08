@@ -1,19 +1,16 @@
-package es.unizar.eina.camping.ui;
+package es.unizar.eina.T202_camping.ui;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import java.util.List;
-
-import es.unizar.eina.camping.R;
-import es.unizar.eina.camping.database.Parcela;
+import es.unizar.eina.T202_camping.R;
+import es.unizar.eina.T202_camping.database.Parcela;
 
 public class IndexParcela extends AppCompatActivity {
     Button mCreateParcelaButton;

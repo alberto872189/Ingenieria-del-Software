@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'es.unizar.eina.camping'
+    namespace 'es.unizar.eina.T202_camping'
     compileSdk 34
 
     defaultConfig {
-        applicationId "es.unizar.eina.camping"
+        applicationId "es.unizar.eina.T202_camping"
         minSdk 24
         targetSdk 34
         versionCode 1

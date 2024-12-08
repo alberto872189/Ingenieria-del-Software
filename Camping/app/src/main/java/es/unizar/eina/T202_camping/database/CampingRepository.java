@@ -1,4 +1,4 @@
-package es.unizar.eina.camping.database;
+package es.unizar.eina.T202_camping.database;
 
 
 import android.app.Application;
