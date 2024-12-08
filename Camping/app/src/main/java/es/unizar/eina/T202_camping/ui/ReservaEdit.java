@@ -37,7 +37,7 @@ public class ReservaEdit extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservacreate);
+        setContentView(R.layout.activity_reservaedit);
 
         mNameText = findViewById(R.id.name);
         mMovilText = findViewById(R.id.phone);
@@ -55,8 +55,9 @@ public class ReservaEdit extends AppCompatActivity {
                 replyIntent.putExtra(ReservaCreate.RESERVA_PHONE, mMovilText.getText().toString());
                 replyIntent.putExtra(ReservaCreate.RESERVA_ENTRADA, mEntradaText.getText().toString());
                 replyIntent.putExtra(ReservaCreate.RESERVA_SALIDA, mSalidaText.getText().toString());
-
-                replyIntent.putExtra(ReservaCreate.RESERVA_ID, String.valueOf(mRowId));
+                if (mRowId!=null) {
+                    replyIntent.putExtra(ReservaCreate.RESERVA_ID, mRowId.intValue());
+                }
                 setResult(RESULT_OK, replyIntent);
             }
             finish();

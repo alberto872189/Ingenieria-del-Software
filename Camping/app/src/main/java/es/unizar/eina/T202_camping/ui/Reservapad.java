@@ -163,6 +163,7 @@ public class Reservapad extends AppCompatActivity {
         intent.putExtra(ReservaEdit.RESERVA_PHONE, current.getMovil());
         intent.putExtra(ReservaEdit.RESERVA_ENTRADA, current.getFechaEntrada());
         intent.putExtra(ReservaEdit.RESERVA_SALIDA, current.getFechaSalida());
+        intent.putExtra(ReservaEdit.RESERVA_ID, current.getId());
         intent.putExtra("1", current.getPrecio()); //Rellenar con precio
         mStartUpdateReserva.launch(intent);
     }
@@ -170,8 +171,8 @@ public class Reservapad extends AppCompatActivity {
     ActivityResultLauncher<Intent> mStartUpdateReserva = newActivityResultLauncher(new ExecuteActivityResultReserva() {
         @Override
         public void process(Bundle extras, Reserva reserva) {
-            String id = ReservaEdit.RESERVA_ID;
-            reserva.setId(Integer.valueOf(id));
+            int id = extras.getInt(ReservaEdit.RESERVA_ID);
+            reserva.setId(id);
             mReservaViewModel.update(reserva);
         }
     });
