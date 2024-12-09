@@ -6,15 +6,15 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-public class ParcelaWithReserva {
+public class ReservaWithParcela {
     @Embedded
-    Reserva reserva;
+    Parcela parcela;
 
     @Relation(
-            parentColumn = "id",
-            entityColumn = "name",
+            parentColumn = "name",
+            entityColumn = "id",
             associateBy = @Junction(Parcela_Reserva.class)
     )
 
-    public List<Parcela> parcelas;
+    public List<Reserva> reservas;
 }

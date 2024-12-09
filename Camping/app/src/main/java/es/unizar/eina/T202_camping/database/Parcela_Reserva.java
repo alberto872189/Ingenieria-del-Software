@@ -5,14 +5,14 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 
 /** Clase anotada como entidad que representa una nota y que consta de título y cuerpo */
-@Entity(tableName = "parcela_reserva", primaryKeys = {"parcelaID", "reservaID"})
+@Entity(tableName = "parcela_reserva", primaryKeys = {"name", "id"})
 public class Parcela_Reserva {
     @NonNull
-    @ColumnInfo(name = "parcelaID")
+    @ColumnInfo(name = "name")
     private String parcelaID;
 
     @NonNull
-    @ColumnInfo(name = "reservaID")
+    @ColumnInfo(name = "id")
     private Integer reservaID;
 
     @ColumnInfo(name = "ocupantes")

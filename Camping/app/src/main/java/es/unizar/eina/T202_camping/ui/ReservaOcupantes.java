@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import es.unizar.eina.T202_camping.R;
@@ -75,7 +76,8 @@ public class ReservaOcupantes extends AppCompatActivity {
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
 
-            //List<Parcela> parcelas = mParcelaViewModel.getAllParcelas().getValue();
+            List<Parcela> ListaParcelas = mParcelaViewModel.getAllParcelas().getValue();
+
 
 
 

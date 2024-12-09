@@ -77,6 +77,18 @@ public class CampingRepository {
         return mReservaDao.getOrderedReservasFecha();
     }
 
+    public LiveData<List<Parcela_Reserva>> getAllParcelaReserva() {
+        return mParcelaReservaDao.getOrderedParcelaReserva();
+    }
+
+    public LiveData<List<ParcelaWithReserva>> getParcelaWithReserva() {
+        return mParcelaReservaDao.getParcelaWithReserva();
+    }
+
+    public LiveData<List<ReservaWithParcela>> getReservaWithParcela() {
+        return mParcelaReservaDao.getReservaWithParcela();
+    }
+
     /** Inserta una nota nueva en la base de datos
      * @param parcela La nota consta de: un título (parcela.getTitle()) no nulo (parcela.getTitle()!=null) y no vacío
      *             (parcela.getTitle().length()>0); y un cuerpo (parcela.getBody()) no nulo.
