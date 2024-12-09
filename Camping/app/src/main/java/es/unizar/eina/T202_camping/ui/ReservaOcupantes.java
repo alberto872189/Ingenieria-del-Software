@@ -82,15 +82,6 @@ public class ReservaOcupantes extends AppCompatActivity {
             List<Parcela> ListaParcelas = mParcelaViewModel.getAllParcelas().getValue();
 
 
-
-
-            Reserva reserva = new Reserva((String)extras.get(ReservaCreate.RESERVA_NAME),
-                                        (String)extras.get(ReservaCreate.RESERVA_PHONE),
-                                        (String)extras.get(ReservaCreate.RESERVA_ENTRADA),
-                                        (String)extras.get(ReservaCreate.RESERVA_SALIDA),
-                                        1.0);
-            mReservaViewModel.insert(reserva);
-
             Vector<Integer> ocupantesPorParcela = new Vector<Integer>();
             for (EditText et : mEditTexts) {
                 Integer ocupantes = Integer.valueOf(et.getText().toString());
@@ -98,13 +89,31 @@ public class ReservaOcupantes extends AppCompatActivity {
                     ocupantesPorParcela.add(ocupantes);
                 }
             }
+
             ArrayList<String> seleccionadas = (ArrayList<String>)extras.get("parcelasSeleccionadas");
+
+            Double SumaPrecio = 0.0;
             int i = 0;
             for (String parcela : seleccionadas) {
-                Parcela_Reserva pr = new Parcela_Reserva(parcela, reserva.getId(), ocupantesPorParcela.get(i), mParcelaViewModel.getParcela(parcela).getPrecio());
+                SumaPrecio += (mParcelaViewModel.getParcela(parcela).getPrecio() * ocupantesPorParcela.get(i));
+                i++;
+            }
+
+            Reserva reserva = new Reserva((String)extras.get(ReservaCreate.RESERVA_NAME),
+                    (String)extras.get(ReservaCreate.RESERVA_PHONE),
+                    (String)extras.get(ReservaCreate.RESERVA_ENTRADA),
+                    (String)extras.get(ReservaCreate.RESERVA_SALIDA),
+                    SumaPrecio);
+            mReservaViewModel.insert(reserva);
+
+            i = 0;
+            for (String parcela : seleccionadas) {
+                Parcela_Reserva pr = new Parcela_Reserva(parcela, reserva.getId(), ocupantesPorParcela.get(i));
                 i++;
                 mParcelaReservaViewModel.insert(pr);
             }
+
+
 
             Intent replyIntent = new Intent();
             /*int[] ocupantes = new int[mEditTexts.size()];

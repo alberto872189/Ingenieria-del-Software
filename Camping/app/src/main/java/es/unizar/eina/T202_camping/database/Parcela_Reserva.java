@@ -18,14 +18,10 @@ public class Parcela_Reserva {
     @ColumnInfo(name = "ocupantes")
     private Integer ocupantes;
 
-    @ColumnInfo(name = "precio")
-    private Double precio;
-
-    public Parcela_Reserva(String parcelaID, Integer reservaID, Integer ocupantes, Double precio) {
+    public Parcela_Reserva(String parcelaID, Integer reservaID, Integer ocupantes) {
         this.parcelaID = parcelaID;
         this.reservaID = reservaID;
         this.ocupantes = ocupantes;
-        this.precio = precio;
     }
 
     public String getParcelaID(){
@@ -36,7 +32,6 @@ public class Parcela_Reserva {
 
     public Integer getOcupantes() {return this.ocupantes; }
 
-    public Double getPrecio() {return this.precio; }
 
 
 }

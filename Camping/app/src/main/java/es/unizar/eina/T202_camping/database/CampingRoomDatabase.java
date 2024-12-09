@@ -29,6 +29,7 @@ public abstract class CampingRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     CampingRoomDatabase.class, "camping_database")
+                            .allowMainThreadQueries()
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
