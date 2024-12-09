@@ -10,21 +10,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.Vector;
 
 import es.unizar.eina.T202_camping.R;
 import es.unizar.eina.T202_camping.database.Parcela;
+import es.unizar.eina.T202_camping.database.Reserva;
 
 /** Pantalla utilizada para la creación o edición de una nota */
 public class ReservaOcupantes extends AppCompatActivity {
 
-    public static final String RESERVA_ID = "id";
-    public static final String RESERVA_NAME = "name";
-    public static final String RESERVA_PHONE = "phone";
-    public static final String RESERVA_ENTRADA = "entrada";
-    public static final String RESERVA_SALIDA = "salida";
+    private ReservaViewModel mReservaViewModel;
+    private ParcelaViewModel mParcelaViewModel;
 
     private Integer mRowId;
 
@@ -42,6 +42,9 @@ public class ReservaOcupantes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reservaocupantes);
 
+        mReservaViewModel = new ViewModelProvider(this).get(ReservaViewModel.class);
+        mParcelaViewModel = new ViewModelProvider(this).get(ParcelaViewModel.class);
+
         mTextViews = new Vector<>();
         mEditTexts = new Vector<>();
 
@@ -58,7 +61,9 @@ public class ReservaOcupantes extends AppCompatActivity {
             android.util.Log.d("PARCELASEL", parcela);
             TextView tv = new TextView(this);
             tv.setText(parcela);
+            tv.setTextSize(18);
             EditText et = new EditText(this);
+            et.setTextSize(18);
             LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             layout.addView(tv, lp1);
@@ -69,14 +74,25 @@ public class ReservaOcupantes extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
-            Intent replyIntent = new Intent();
-            replyIntent.putExtra(ReservaOcupantes.RESERVA_NAME, (String)extras.get(ReservaCreate.RESERVA_NAME));
-            replyIntent.putExtra(ReservaOcupantes.RESERVA_PHONE, (String)extras.get(ReservaCreate.RESERVA_PHONE));
-            replyIntent.putExtra(ReservaOcupantes.RESERVA_ENTRADA, (String)extras.get(ReservaCreate.RESERVA_ENTRADA));
-            replyIntent.putExtra(ReservaOcupantes.RESERVA_SALIDA, (String)extras.get(ReservaCreate.RESERVA_SALIDA));
 
-            replyIntent.putExtra(ReservaOcupantes.RESERVA_ID, String.valueOf(mRowId));
-            startActivity(replyIntent);
+            //List<Parcela> parcelas = mParcelaViewModel.getAllParcelas().getValue();
+
+
+
+            Reserva reserva = new Reserva((String)extras.get(ReservaCreate.RESERVA_NAME),
+                                        (String)extras.get(ReservaCreate.RESERVA_PHONE),
+                                        (String)extras.get(ReservaCreate.RESERVA_ENTRADA),
+                                        (String)extras.get(ReservaCreate.RESERVA_SALIDA),
+                                        1.0);
+            mReservaViewModel.insert(reserva);
+
+            Intent replyIntent = new Intent();
+            /*int[] ocupantes = new int[mEditTexts.size()];
+            int i = 0;
+            for (EditText editText : mEditTexts){
+                ocupantes[i] = Integer.valueOf(editText.getText().toString());
+            }
+            replyIntent.putExtra("ocupantes", ocupantes);*/
             setResult(RESULT_OK, replyIntent);
             finish();
         });

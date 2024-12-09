@@ -7,9 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import es.unizar.eina.T202_camping.R;
+import es.unizar.eina.T202_camping.database.Reserva;
 
 /** Pantalla utilizada para la creación o edición de una nota */
 public class ReservaCreate extends AppCompatActivity {
@@ -46,7 +50,8 @@ public class ReservaCreate extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
-            Intent replyIntent = new Intent(this, Parcelapad_reserva.class);
+            createReserva();
+           /* Intent replyIntent = new Intent(this, Parcelapad_reserva.class);
             if (TextUtils.isEmpty(mNameText.getText())) {
                 setResult(RESULT_CANCELED, replyIntent);
                 Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
@@ -60,7 +65,7 @@ public class ReservaCreate extends AppCompatActivity {
                 startActivity(replyIntent);
                 setResult(RESULT_OK, replyIntent);
             }
-            finish();
+            finish();*/
         });
 
         mCancelButton = findViewById(R.id.button_cancel);
@@ -73,6 +78,67 @@ public class ReservaCreate extends AppCompatActivity {
         populateFields();
 
     }
+
+    private void createReserva() {
+        Intent replyIntent = new Intent(this, Parcelapad_reserva.class);
+        if (TextUtils.isEmpty(mNameText.getText())) {
+            setResult(RESULT_CANCELED, replyIntent);
+            Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
+        } else {
+            replyIntent.putExtra(ReservaCreate.RESERVA_NAME, mNameText.getText().toString());
+            replyIntent.putExtra(ReservaCreate.RESERVA_PHONE, mMovilText.getText().toString());
+            replyIntent.putExtra(ReservaCreate.RESERVA_ENTRADA, mEntradaText.getText().toString());
+            replyIntent.putExtra(ReservaCreate.RESERVA_SALIDA, mSalidaText.getText().toString());
+            if (mRowId != null) {
+                replyIntent.putExtra(ReservaCreate.RESERVA_ID, String.valueOf(mRowId.intValue()));
+            }
+            mStartCreateReserva.launch(replyIntent);
+        }
+
+    }
+
+    ActivityResultLauncher<Intent> mStartCreateReserva = newActivityResultLauncher(new ExecuteActivityResultReserva() {
+        @Override
+        public void process(Bundle extras, Reserva reserva) {
+            //mReservaViewModel.insert(reserva);
+        }
+    });
+
+    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResultReserva executable) {
+        return registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent replyIntent = new Intent();
+                        setResult(RESULT_OK, replyIntent);
+                        finish();
+                    }
+                });
+    }
+
+    private void editReserva(Reserva current) {
+        Intent intent = new Intent(this, ReservaEdit.class);
+        intent.putExtra(ReservaEdit.RESERVA_NAME, current.getName());
+        intent.putExtra(ReservaEdit.RESERVA_PHONE, current.getMovil());
+        intent.putExtra(ReservaEdit.RESERVA_ENTRADA, current.getFechaEntrada());
+        intent.putExtra(ReservaEdit.RESERVA_SALIDA, current.getFechaSalida());
+        intent.putExtra(ReservaEdit.RESERVA_ID, current.getId());
+        intent.putExtra("1", current.getPrecio()); //Rellenar con precio
+        mStartUpdateReserva.launch(intent);
+    }
+
+    ActivityResultLauncher<Intent> mStartUpdateReserva = newActivityResultLauncher(new ExecuteActivityResultReserva() {
+        @Override
+        public void process(Bundle extras, Reserva reserva) {
+            int id = extras.getInt(ReservaEdit.RESERVA_ID);
+            reserva.setId(id);
+            //mReservaViewModel.update(reserva);
+        }
+    });
+
+interface ExecuteActivityResultReserva {
+    void process(Bundle extras, Reserva reserva);
+}
 
     private void populateFields () {
         mRowId = null;

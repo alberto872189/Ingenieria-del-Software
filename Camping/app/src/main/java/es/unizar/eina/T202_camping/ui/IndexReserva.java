@@ -59,7 +59,7 @@ public class IndexReserva extends AppCompatActivity {
         return registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == RESULT_OK) {
+                    /*if (result.getResultCode() == RESULT_OK) {
                         Bundle extras = result.getData().getExtras();
                         Reserva reserva = new Reserva(extras.getString(ReservaEdit.RESERVA_NAME),
                                 extras.getString(ReservaEdit.RESERVA_PHONE),
@@ -67,7 +67,7 @@ public class IndexReserva extends AppCompatActivity {
                                 extras.getString(ReservaEdit.RESERVA_SALIDA),
                                 1.0); //Rellenar con precio
                         executable.process(extras, reserva);
-                    }
+                    }*/
                 });
     }
 }
