@@ -29,11 +29,13 @@ public interface ParcelaDao {
     @Query("SELECT * FROM Parcela ORDER BY name ASC")
     LiveData<List<Parcela>> getOrderedParcelasName();
 
-
     @Query("SELECT * FROM Parcela ORDER BY precio ASC")
     LiveData<List<Parcela>> getOrderedParcelasPrecio();
 
     @Query("SELECT * FROM Parcela ORDER BY ocupantes ASC")
     LiveData<List<Parcela>> getOrderedParcelasOcupantes();
+
+    @Query("SELECT * FROM Parcela WHERE name = :name")
+    Parcela getParcela(String name);
 }
 

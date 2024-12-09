@@ -224,4 +224,8 @@ public class CampingRepository {
             return -1;
         }
     }
+
+    public Parcela getParcela(String parcela) {
+        return mParcelaDao.getParcela(parcela);
+    }
 }

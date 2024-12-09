@@ -101,7 +101,7 @@ public class ReservaOcupantes extends AppCompatActivity {
             ArrayList<String> seleccionadas = (ArrayList<String>)extras.get("parcelasSeleccionadas");
             int i = 0;
             for (String parcela : seleccionadas) {
-                Parcela_Reserva pr = new Parcela_Reserva(parcela, reserva.getId(), ocupantesPorParcela.get(i));
+                Parcela_Reserva pr = new Parcela_Reserva(parcela, reserva.getId(), ocupantesPorParcela.get(i), mParcelaViewModel.getParcela(parcela).getPrecio());
                 i++;
                 mParcelaReservaViewModel.insert(pr);
             }
