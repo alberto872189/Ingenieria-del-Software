@@ -20,12 +20,14 @@ import java.util.Vector;
 import es.unizar.eina.T202_camping.R;
 import es.unizar.eina.T202_camping.database.Parcela;
 import es.unizar.eina.T202_camping.database.Reserva;
+import es.unizar.eina.T202_camping.database.Parcela_Reserva;
 
 /** Pantalla utilizada para la creación o edición de una nota */
 public class ReservaOcupantes extends AppCompatActivity {
 
     private ReservaViewModel mReservaViewModel;
     private ParcelaViewModel mParcelaViewModel;
+    private Parcela_ReservaViewModel mParcelaReservaViewModel;
 
     private Integer mRowId;
 
@@ -45,6 +47,7 @@ public class ReservaOcupantes extends AppCompatActivity {
 
         mReservaViewModel = new ViewModelProvider(this).get(ReservaViewModel.class);
         mParcelaViewModel = new ViewModelProvider(this).get(ParcelaViewModel.class);
+        mParcelaReservaViewModel = new ViewModelProvider(this).get(Parcela_ReservaViewModel.class);
 
         mTextViews = new Vector<>();
         mEditTexts = new Vector<>();
@@ -87,6 +90,21 @@ public class ReservaOcupantes extends AppCompatActivity {
                                         (String)extras.get(ReservaCreate.RESERVA_SALIDA),
                                         1.0);
             mReservaViewModel.insert(reserva);
+
+            Vector<Integer> ocupantesPorParcela = new Vector<Integer>();
+            for (EditText et : mEditTexts) {
+                Integer ocupantes = Integer.valueOf(et.getText().toString());
+                if (ocupantes != null) {
+                    ocupantesPorParcela.add(ocupantes);
+                }
+            }
+            ArrayList<String> seleccionadas = (ArrayList<String>)extras.get("parcelasSeleccionadas");
+            int i = 0;
+            for (String parcela : seleccionadas) {
+                Parcela_Reserva pr = new Parcela_Reserva(parcela, reserva.getId(), ocupantesPorParcela.get(i));
+                i++;
+                mParcelaReservaViewModel.insert(pr);
+            }
 
             Intent replyIntent = new Intent();
             /*int[] ocupantes = new int[mEditTexts.size()];

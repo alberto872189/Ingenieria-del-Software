@@ -2,6 +2,7 @@ package es.unizar.eina.T202_camping.database;
 
 
 import android.app.Application;
+import android.os.Parcel;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -178,6 +179,44 @@ public class CampingRepository {
     public int delete(Reserva reserva) {
         Future<Integer> future = CampingRoomDatabase.databaseWriteExecutor.submit(
                 () -> mReservaDao.delete(reserva));
+        try {
+            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            Log.d("CampingRepository", ex.getClass().getSimpleName() + ex.getMessage());
+            return -1;
+        }
+    }
+
+    public long insert(Parcela_Reserva pr) {
+        /* Para que la App funcione correctamente y no lance una excepción, la modificación de la
+         * base de datos se debe lanzar en un hilo de ejecución separado
+         * (databaseWriteExecutor.submit). Para poder sincronizar la recuperación del resultado
+         * devuelto por la base de datos, se puede utilizar un Future.
+         */
+        Future<Long> future = CampingRoomDatabase.databaseWriteExecutor.submit(
+                () -> mParcelaReservaDao.insert(pr));
+        try {
+            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            Log.d("CampingRepository", ex.getClass().getSimpleName() + ex.getMessage());
+            return -1;
+        }
+    }
+
+    public int update(Parcela_Reserva pr) {
+        Future<Integer> future = CampingRoomDatabase.databaseWriteExecutor.submit(
+                () -> mParcelaReservaDao.update(pr));
+        try {
+            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            Log.d("CampingRepository", ex.getClass().getSimpleName() + ex.getMessage());
+            return -1;
+        }
+    }
+
+    public int delete(Parcela_Reserva pr) {
+        Future<Integer> future = CampingRoomDatabase.databaseWriteExecutor.submit(
+                () -> mParcelaReservaDao.delete(pr));
         try {
             return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException ex) {
