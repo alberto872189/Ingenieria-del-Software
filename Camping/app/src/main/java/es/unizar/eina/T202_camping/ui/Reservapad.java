@@ -119,11 +119,12 @@ public class Reservapad extends AppCompatActivity {
                 editReserva(current);
                 return true;
             case SEND_ID:
-                String mensaje = "Datos reserva" +"\n" +
-                        "Nombre" + current.getName() + "\n" +
-                        "Móvil" + current.getMovil() + "\n" +
-                        "Fecha de entrada" + current.getFechaEntrada() + "\n" +
-                        "Fecha de salida" + current.getFechaSalida() + "\n";
+                String mensaje = "*Datos reserva*" +"\n" +
+                        "Nombre: " + current.getName() + "\n" +
+                        "Móvil: " + current.getMovil() + "\n" +
+                        "Fecha de entrada: " + current.getFechaEntrada() + "\n" +
+                        "Fecha de salida: " + current.getFechaSalida() + "\n" +
+                        "Precio total: " + current.getPrecio();
                 send.send(current.getMovil(), mensaje);
                 return true;
         }

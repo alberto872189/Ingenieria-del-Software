@@ -38,5 +38,9 @@ public interface ParcelaReservaDao {
     @Query("SELECT * FROM Parcela_Reserva")
     LiveData<List<ReservaWithParcela>> getReservaWithParcela();
 
+    @Transaction
+    @Query("SELECT * FROM PARCELA_RESERVA WHERE id = :id")
+    LiveData<List<ParcelaWithReserva>> getParcelasForReserva(int id);
+
 }
 

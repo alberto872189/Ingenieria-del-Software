@@ -1,9 +1,12 @@
 package es.unizar.eina.T202_camping.ui;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -11,6 +14,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.Calendar;
 
 import es.unizar.eina.T202_camping.R;
 import es.unizar.eina.T202_camping.database.Reserva;
@@ -51,21 +56,6 @@ public class ReservaCreate extends AppCompatActivity {
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
             createReserva();
-           /* Intent replyIntent = new Intent(this, Parcelapad_reserva.class);
-            if (TextUtils.isEmpty(mNameText.getText())) {
-                setResult(RESULT_CANCELED, replyIntent);
-                Toast.makeText(getApplicationContext(), R.string.empty_not_saved, Toast.LENGTH_LONG).show();
-            } else {
-                replyIntent.putExtra(ReservaCreate.RESERVA_NAME, mNameText.getText().toString());
-                replyIntent.putExtra(ReservaCreate.RESERVA_PHONE, mMovilText.getText().toString());
-                replyIntent.putExtra(ReservaCreate.RESERVA_ENTRADA, mEntradaText.getText().toString());
-                replyIntent.putExtra(ReservaCreate.RESERVA_SALIDA, mSalidaText.getText().toString());
-
-                replyIntent.putExtra(ReservaCreate.RESERVA_ID, String.valueOf(mRowId));
-                startActivity(replyIntent);
-                setResult(RESULT_OK, replyIntent);
-            }
-            finish();*/
         });
 
         mCancelButton = findViewById(R.id.button_cancel);
@@ -75,6 +65,49 @@ public class ReservaCreate extends AppCompatActivity {
             finish();
         });
 
+        mEntradaText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dpc = new DatePickerDialog(
+                        ReservaCreate.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                mEntradaText.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                            }
+                        },
+                        year, month, day);
+                dpc.show();
+            }
+        });
+
+        mSalidaText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int day = c.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dpc = new DatePickerDialog(
+                        ReservaCreate.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                mSalidaText.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                            }
+                        },
+                        year, month, day);
+                dpc.show();
+            }
+        });
         populateFields();
 
     }

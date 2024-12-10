@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 import es.unizar.eina.T202_camping.database.CampingRepository;
+import es.unizar.eina.T202_camping.database.ParcelaWithReserva;
 import es.unizar.eina.T202_camping.database.Parcela_Reserva;
 
 public class Parcela_ReservaViewModel extends AndroidViewModel {
@@ -23,7 +24,7 @@ public class Parcela_ReservaViewModel extends AndroidViewModel {
     }
 
     LiveData<List<Parcela_Reserva>> getAllParcelaReserva() { return mAllParcela_Reservas; }
-
+    LiveData<List<ParcelaWithReserva>> getParcelasForReserva(int id) { return mRepository.getParcelaForReserva(id);}
 
     public void insert(Parcela_Reserva pr) { mRepository.insert(pr); }
     public void update(Parcela_Reserva pr) { mRepository.update(pr); }

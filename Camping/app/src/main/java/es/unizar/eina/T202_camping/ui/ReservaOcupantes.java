@@ -13,12 +13,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
 import es.unizar.eina.T202_camping.R;
 import es.unizar.eina.T202_camping.database.Parcela;
+import es.unizar.eina.T202_camping.database.ParcelaWithReserva;
 import es.unizar.eina.T202_camping.database.Reserva;
 import es.unizar.eina.T202_camping.database.Parcela_Reserva;
 
@@ -39,6 +44,61 @@ public class ReservaOcupantes extends AppCompatActivity {
     Button mSaveButton;
     Button mCancelButton;
 
+    private boolean comprobarSolape(Reserva r1, Reserva r2) {
+        Date r1Entrada = new Date();
+        Date r1Salida = new Date();
+        Date r2Entrada = new Date();
+        Date r2Salida = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+        try {
+            r1Entrada = formatter.parse(r1.getFechaEntrada());
+            r1Salida = formatter.parse(r1.getFechaSalida());
+            r2Entrada = formatter.parse(r2.getFechaEntrada());
+            r2Salida = formatter.parse(r2.getFechaSalida());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return (r1Salida.before(r2Entrada) || r2Salida.after(r1Entrada));
+    }
+
+    private boolean solapadas (Parcela parcela, Reserva reserva) {
+        List<Reserva> listaReservas = mReservaViewModel.getAllReservas().getValue();
+        for (Reserva r : listaReservas) {
+            if (comprobarSolape(r, reserva)) {
+                List<ParcelaWithReserva>  parcelas = mParcelaReservaViewModel.getParcelasForReserva(reserva.getId()).getValue();
+                for (ParcelaWithReserva pr : parcelas) {
+                    for (Parcela p : pr.parcelas) {
+                        if (p.getName().equals(parcela.getName())) return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private String comprobarValidezReserva(Reserva reserva, Vector<Parcela> vectorParcelas, Vector<Integer> ocupantesPorParcela) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+        Date fechaEntrada = new Date();
+        Date fechaSalida = new Date();
+        Date diaActual = Calendar.getInstance().getTime();
+        try {
+            fechaEntrada = formatter.parse(reserva.getFechaEntrada());
+            fechaSalida = formatter.parse(reserva.getFechaSalida());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        if (fechaEntrada.after(fechaSalida)) return "ERROR: Fecha de salida anterior a fecha actual";
+        if (fechaEntrada.before(diaActual) || fechaEntrada.equals(diaActual)) return "ERROR: Fecha de entrada anterior a fecha actual";
+
+        int i = 0;
+        for (Parcela parcela : vectorParcelas) {
+            if (ocupantesPorParcela.get(i) > parcela.getOcupantes()) return "ERROR: Se supera la capacidad de la parcela \"" + parcela.getName() + "\"";
+            if(solapadas(parcela, reserva)) return "ERROR: La reserva para la parcela \"" + parcela.getName() + "\" se solapa con otra reserva";
+        }
+
+        return "Reserva creada correctamente";
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,16 +164,27 @@ public class ReservaOcupantes extends AppCompatActivity {
                     (String)extras.get(ReservaCreate.RESERVA_ENTRADA),
                     (String)extras.get(ReservaCreate.RESERVA_SALIDA),
                     SumaPrecio);
-            mReservaViewModel.insert(reserva);
 
-            i = 0;
+            Vector<Parcela> vectorParcelas = new Vector<Parcela>();
             for (String parcela : seleccionadas) {
-                Parcela_Reserva pr = new Parcela_Reserva(parcela, reserva.getId(), ocupantesPorParcela.get(i));
-                i++;
-                mParcelaReservaViewModel.insert(pr);
+                vectorParcelas.add(mParcelaViewModel.getParcela(parcela));
             }
 
-
+            String msg = comprobarValidezReserva(reserva, vectorParcelas, ocupantesPorParcela);
+            if (msg.equals("Reserva creada correctamente")) {
+                mReservaViewModel.insert(reserva);
+                i = 0;
+                for (String parcela : seleccionadas) {
+                    Parcela_Reserva pr = new Parcela_Reserva(parcela, reserva.getId(), ocupantesPorParcela.get(i));
+                    i++;
+                    mParcelaReservaViewModel.insert(pr);
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
             Intent replyIntent = new Intent();
             /*int[] ocupantes = new int[mEditTexts.size()];
