@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"es.unizar.eina.camping"},{"l":"es.unizar.eina.camping.database"},{"l":"es.unizar.eina.camping.ui"}];updateSearchResults();
