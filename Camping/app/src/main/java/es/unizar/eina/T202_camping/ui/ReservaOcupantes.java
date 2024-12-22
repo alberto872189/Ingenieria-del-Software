@@ -49,7 +49,7 @@ public class ReservaOcupantes extends AppCompatActivity {
         Date r1Salida = new Date();
         Date r2Entrada = new Date();
         Date r2Salida = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMparser /yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         try {
             r1Entrada = formatter.parse(r1.getFechaEntrada());
             r1Salida = formatter.parse(r1.getFechaSalida());
