@@ -49,7 +49,7 @@ public class ReservaOcupantes extends AppCompatActivity {
         Date r1Salida = new Date();
         Date r2Entrada = new Date();
         Date r2Salida = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMparser /yyyy");
         try {
             r1Entrada = formatter.parse(r1.getFechaEntrada());
             r1Salida = formatter.parse(r1.getFechaSalida());
@@ -78,17 +78,22 @@ public class ReservaOcupantes extends AppCompatActivity {
     }
 
     private String comprobarValidezReserva(Reserva reserva, Vector<Parcela> vectorParcelas, Vector<Integer> ocupantesPorParcela) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date fechaEntrada = new Date();
         Date fechaSalida = new Date();
         Date diaActual = Calendar.getInstance().getTime();
         try {
+            android.util.Log.d("FECHA_ENTRADA", reserva.getFechaEntrada());
+            android.util.Log.d("FECHA_SALIDA", reserva.getFechaSalida());
             fechaEntrada = formatter.parse(reserva.getFechaEntrada());
             fechaSalida = formatter.parse(reserva.getFechaSalida());
+            android.util.Log.d("FECHA_ENTRADA", fechaEntrada.toString());
+            android.util.Log.d("FECHA_SALIDA", fechaSalida.toString());
+            android.util.Log.d("FECHA_ACTUAL", diaActual.toString());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        if (fechaEntrada.after(fechaSalida)) return "ERROR: Fecha de salida anterior a fecha actual";
+        if (fechaEntrada.after(fechaSalida)) return "ERROR: Fecha de salida anterior a fecha entrada";
         if (fechaEntrada.before(diaActual) || fechaEntrada.equals(diaActual)) return "ERROR: Fecha de entrada anterior a fecha actual";
 
         int i = 0;
