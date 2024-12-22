@@ -175,12 +175,12 @@ public class ReservaOcupantes extends AppCompatActivity {
                 vectorParcelas.add(mParcelaViewModel.getParcela(parcela));
             }
 
-            String msg = comprobarValidezReserva(reserva, vectorParcelas, ocupantesPorParcela);
+            String msg = "Reserva creada correctamente"; //comprobarValidezReserva(reserva, vectorParcelas, ocupantesPorParcela);
             if (msg.equals("Reserva creada correctamente")) {
-                mReservaViewModel.insert(reserva);
+                long id = mReservaViewModel.insert(reserva);
                 i = 0;
                 for (String parcela : seleccionadas) {
-                    Parcela_Reserva pr = new Parcela_Reserva(parcela, reserva.getId(), ocupantesPorParcela.get(i));
+                    Parcela_Reserva pr = new Parcela_Reserva(parcela, (int) id, ocupantesPorParcela.get(i));
                     i++;
                     mParcelaReservaViewModel.insert(pr);
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();

@@ -30,7 +30,7 @@ public class ReservaViewModel extends AndroidViewModel {
 
     LiveData<List<Reserva>> getAllReservasFecha() {return mRepository.getAllReservasFecha();}
 
-    public void insert(Reserva reserva) { mRepository.insert(reserva); }
+    public long insert(Reserva reserva) { return mRepository.insert(reserva);}
 
     public void update(Reserva reserva) { mRepository.update(reserva); }
     public void delete(Reserva reserva) { mRepository.delete(reserva); }

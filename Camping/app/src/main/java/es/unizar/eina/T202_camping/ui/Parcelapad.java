@@ -15,12 +15,16 @@ import android.widget.Toast;
 
 import es.unizar.eina.T202_camping.database.Parcela;
 import es.unizar.eina.T202_camping.R;
+import es.unizar.eina.T202_camping.database.Parcela_Reserva;
 
 import static androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
+
+import java.util.List;
 
 /** Pantalla principal de la aplicación Parcelapad */
 public class Parcelapad extends AppCompatActivity {
     private ParcelaViewModel mParcelaViewModel;
+    private Parcela_ReservaViewModel mParcelaReservaViewModel;
 
     static final int INSERT_ID = Menu.FIRST;
     static final int DELETE_ID = Menu.FIRST + 1;
@@ -44,6 +48,7 @@ public class Parcelapad extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mParcelaViewModel = new ViewModelProvider(this).get(ParcelaViewModel.class);
+        mParcelaReservaViewModel = new ViewModelProvider(this).get(Parcela_ReservaViewModel.class);
 
         mParcelaViewModel.getAllParcelas().observe(this, parcelas -> {
             // Update the cached copy of the parcelas in the adapter.
@@ -118,6 +123,12 @@ public class Parcelapad extends AppCompatActivity {
                         getApplicationContext(),
                         "Deleting " + current.getName(),
                         Toast.LENGTH_LONG).show();
+               /* List<Parcela_Reserva> parcela_reserva = mParcelaReservaViewModel.getAllParcelaReserva().getValue();
+                for(Parcela_Reserva i : parcela_reserva){
+                    if(i.getParcelaID().equals(current.getName())) {
+                        mParcelaReservaViewModel.delete(i);
+                    }
+                }*/
                 mParcelaViewModel.delete(current);
                 return true;
             case EDIT_ID:

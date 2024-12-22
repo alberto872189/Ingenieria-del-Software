@@ -11,11 +11,16 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 import es.unizar.eina.T202_camping.R;
+import es.unizar.eina.T202_camping.database.ParcelaWithReserva;
+import es.unizar.eina.T202_camping.database.Parcela_Reserva;
 import es.unizar.eina.T202_camping.database.Reserva;
 import es.unizar.eina.send.SendAbstraction;
 import es.unizar.eina.send.SendAbstractionImpl;
@@ -23,6 +28,7 @@ import es.unizar.eina.send.SendAbstractionImpl;
 /** Pantalla principal de la aplicación Parcelapad */
 public class Reservapad extends AppCompatActivity {
     private ReservaViewModel mReservaViewModel;
+    private Parcela_ReservaViewModel mParcelaReservaViewModel;
 
     static final int INSERT_ID = Menu.FIRST;
     static final int DELETE_ID = Menu.FIRST + 1;
@@ -49,6 +55,7 @@ public class Reservapad extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mReservaViewModel = new ViewModelProvider(this).get(ReservaViewModel.class);
+        mParcelaReservaViewModel = new ViewModelProvider(this).get(Parcela_ReservaViewModel.class);
 
         mReservaViewModel.getAllReservas().observe(this, reservas -> {
             // Update the cached copy of the parcelas in the adapter.
@@ -113,6 +120,12 @@ public class Reservapad extends AppCompatActivity {
                         getApplicationContext(),
                         "Deleting " + current.getName(),
                         Toast.LENGTH_LONG).show();
+                /*List<Parcela_Reserva> parcela_reserva = mParcelaReservaViewModel.getAllParcelaReserva().getValue();
+                for(Parcela_Reserva i : parcela_reserva){
+                    if(i.getReservaID() == current.getId()) {
+                        mParcelaReservaViewModel.delete(i);
+                    }
+                }*/
                 mReservaViewModel.delete(current);
                 return true;
             case EDIT_ID:
