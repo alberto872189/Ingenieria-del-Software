@@ -120,12 +120,14 @@ public class Reservapad extends AppCompatActivity {
                         getApplicationContext(),
                         "Deleting " + current.getName(),
                         Toast.LENGTH_LONG).show();
-                /*List<Parcela_Reserva> parcela_reserva = mParcelaReservaViewModel.getAllParcelaReserva().getValue();
-                for(Parcela_Reserva i : parcela_reserva){
-                    if(i.getReservaID() == current.getId()) {
-                        mParcelaReservaViewModel.delete(i);
+                mParcelaReservaViewModel.getAllParcelaReserva().observe(this, parcela_reserva -> {
+                    for(Parcela_Reserva i : parcela_reserva){
+                        if(i.getReservaID() == current.getId()) {
+                            mParcelaReservaViewModel.delete(i);
+                        }
                     }
-                }*/
+                });
+
                 mReservaViewModel.delete(current);
                 return true;
             case EDIT_ID:

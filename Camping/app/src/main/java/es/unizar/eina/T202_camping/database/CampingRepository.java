@@ -79,7 +79,7 @@ public class CampingRepository {
     }
 
     public LiveData<List<Parcela_Reserva>> getAllParcelaReserva() {
-        return mParcelaReservaDao.getOrderedParcelaReserva();
+        return mAllParcelaReserva;
     }
 
     public LiveData<List<ParcelaWithReserva>> getParcelaWithReserva() {
