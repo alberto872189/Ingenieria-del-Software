@@ -2,7 +2,6 @@ package es.unizar.eina.T202_camping.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.text.ParseException;
@@ -20,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import es.unizar.eina.T202_camping.R;
 import es.unizar.eina.T202_camping.database.Parcela;
@@ -58,23 +57,24 @@ public class ReservaOcupantes extends AppCompatActivity {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        return (r1Salida.before(r2Entrada) || r2Salida.after(r1Entrada));
+        return !(r1Salida.before(r2Entrada) || r2Salida.after(r1Entrada));
     }
 
     private boolean solapadas (Parcela parcela, Reserva reserva) {
-        List<Reserva> listaReservas = mReservaViewModel.getAllReservas().getValue();
-        for (Reserva r : listaReservas) {
-            if (comprobarSolape(r, reserva)) {
-                List<ParcelaWithReserva>  parcelas = mParcelaReservaViewModel.getParcelasForReserva(reserva.getId()).getValue();
-                for (ParcelaWithReserva pr : parcelas) {
-                    for (Parcela p : pr.parcelas) {
-                        if (p.getName().equals(parcela.getName())) return false;
+        AtomicBoolean resultado = new AtomicBoolean(false);
+        mReservaViewModel.getAllReservas().observe(this, listaReservas -> {
+            for (Reserva r : listaReservas) {
+                if (comprobarSolape(r, reserva)) {
+                    List<ParcelaWithReserva>  parcelas = mParcelaReservaViewModel.getParcelasForReserva(r.getId()).getValue();
+                    for (ParcelaWithReserva pr : parcelas) {
+                        for (Parcela p : pr.parcelas) {
+                            if (p.getName().equals(parcela.getName())) resultado.set(true);
+                        }
                     }
                 }
             }
-        }
-
-        return true;
+        });
+        return resultado.get();
     }
 
     private String comprobarValidezReserva(Reserva reserva, Vector<Parcela> vectorParcelas, Vector<Integer> ocupantesPorParcela) {
@@ -143,10 +143,6 @@ public class ReservaOcupantes extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
-
-            List<Parcela> ListaParcelas = mParcelaViewModel.getAllParcelas().getValue();
-
-
             Vector<Integer> ocupantesPorParcela = new Vector<Integer>();
             for (EditText et : mEditTexts) {
                 Integer ocupantes = Integer.valueOf(et.getText().toString());
@@ -175,7 +171,7 @@ public class ReservaOcupantes extends AppCompatActivity {
                 vectorParcelas.add(mParcelaViewModel.getParcela(parcela));
             }
 
-            String msg = "Reserva creada correctamente"; //comprobarValidezReserva(reserva, vectorParcelas, ocupantesPorParcela);
+            String msg = comprobarValidezReserva(reserva, vectorParcelas, ocupantesPorParcela);
             if (msg.equals("Reserva creada correctamente")) {
                 long id = mReservaViewModel.insert(reserva);
                 i = 0;
