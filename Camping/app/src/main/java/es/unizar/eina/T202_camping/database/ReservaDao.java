@@ -29,6 +29,9 @@ public interface ReservaDao {
     @Query("SELECT * FROM Reserva ORDER BY name ASC")
     LiveData<List<Reserva>> getOrderedReservasName();
 
+    @Query("SELECT * FROM Reserva ORDER BY name ASC")
+    List<Reserva> getOrderedReservasName2();
+
 
     @Query("SELECT * FROM Reserva ORDER BY movil ASC")
     LiveData<List<Reserva>> getOrderedReservasMovil();

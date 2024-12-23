@@ -67,6 +67,10 @@ public class CampingRepository {
         return mAllReservas;
     }
 
+    public List<Reserva> getAllReservas2() {
+        return mReservaDao.getOrderedReservasName2();
+    }
+
     public LiveData<List<Reserva>> getAllReservasName() {
         return mReservaDao.getOrderedReservasName();
     }
@@ -90,7 +94,7 @@ public class CampingRepository {
         return mParcelaReservaDao.getReservaWithParcela();
     }
 
-    public LiveData<List<ParcelaWithReserva>> getParcelaForReserva(int id) {
+    public List<ParcelaWithReserva> getParcelaForReserva(int id) {
         return mParcelaReservaDao.getParcelasForReserva(id);
     }
 

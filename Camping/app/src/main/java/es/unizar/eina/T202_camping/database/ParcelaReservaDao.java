@@ -40,7 +40,7 @@ public interface ParcelaReservaDao {
 
     @Transaction
     @Query("SELECT * FROM PARCELA_RESERVA WHERE id = :id")
-    LiveData<List<ParcelaWithReserva>> getParcelasForReserva(int id);
+    List<ParcelaWithReserva> getParcelasForReserva(int id);
 
 }
 

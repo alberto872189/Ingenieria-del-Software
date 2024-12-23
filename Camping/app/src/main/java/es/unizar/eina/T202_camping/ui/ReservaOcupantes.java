@@ -61,20 +61,18 @@ public class ReservaOcupantes extends AppCompatActivity {
     }
 
     private boolean solapadas (Parcela parcela, Reserva reserva) {
-        AtomicBoolean resultado = new AtomicBoolean(false);
-        mReservaViewModel.getAllReservas().observe(this, listaReservas -> {
-            for (Reserva r : listaReservas) {
-                if (comprobarSolape(r, reserva)) {
-                    List<ParcelaWithReserva>  parcelas = mParcelaReservaViewModel.getParcelasForReserva(r.getId()).getValue();
-                    for (ParcelaWithReserva pr : parcelas) {
-                        for (Parcela p : pr.parcelas) {
-                            if (p.getName().equals(parcela.getName())) resultado.set(true);
-                        }
+        List<Reserva> listaReservas  = mReservaViewModel.getAllReservas2();
+        for (Reserva r : listaReservas) {
+            if (comprobarSolape(r, reserva)) {
+                List<ParcelaWithReserva>  parcelas = mParcelaReservaViewModel.getParcelasForReserva(r.getId());
+                for (ParcelaWithReserva pr : parcelas) {
+                    for (Parcela p : pr.parcelas) {
+                        if (p.getName().equals(parcela.getName())) return true;
                     }
                 }
             }
-        });
-        return resultado.get();
+        }
+        return false;
     }
 
     private String comprobarValidezReserva(Reserva reserva, Vector<Parcela> vectorParcelas, Vector<Integer> ocupantesPorParcela) {

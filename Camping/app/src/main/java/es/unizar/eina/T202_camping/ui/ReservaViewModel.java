@@ -23,6 +23,7 @@ public class ReservaViewModel extends AndroidViewModel {
     }
 
     LiveData<List<Reserva>> getAllReservas() { return mAllReservas; }
+    List<Reserva> getAllReservas2() { return mRepository.getAllReservas2(); }
 
     LiveData<List<Reserva>> getAllReservasName() {return mRepository.getAllReservasName();}
 
