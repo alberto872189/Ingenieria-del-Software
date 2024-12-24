@@ -16,6 +16,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import es.unizar.eina.T202_camping.R;
@@ -84,6 +88,16 @@ public class Reservapad extends AppCompatActivity {
         mOrdenarFecha.setOnClickListener(view -> {
             mReservaViewModel.getAllReservasFecha().observe(this, reservas -> {
                 // Update the cached copy of the parcelas in the adapter.
+                Collections.sort(reservas, (r1, r2) -> {
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    try {
+                        Date r1Entrada = formatter.parse(r1.getFechaEntrada());
+                        Date r2Entrada = formatter.parse(r2.getFechaEntrada());
+                        return r1Entrada.compareTo(r2Entrada);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
                 mAdapter.submitList(reservas);
             });
 

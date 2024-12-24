@@ -54,19 +54,25 @@ public class ReservaOcupantes extends AppCompatActivity {
             r1Salida = formatter.parse(r1.getFechaSalida());
             r2Entrada = formatter.parse(r2.getFechaEntrada());
             r2Salida = formatter.parse(r2.getFechaSalida());
+            android.util.Log.d("SOLAPE_FECHA_ENTRADA1", r1Entrada.toString());
+            android.util.Log.d("SOLAPE_FECHA_SALIDA1", r1Salida.toString());
+            android.util.Log.d("SOLAPE_FECHA_ENTRADA2", r2Entrada.toString());
+            android.util.Log.d("SOLAPE_FECHA_SALIDA2", r2Salida.toString());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        return !(r1Salida.before(r2Entrada) || r2Salida.after(r1Entrada));
+        return !(r1Salida.before(r2Entrada) || r1Salida.equals(r2Entrada) || r2Salida.before(r1Entrada)|| r2Salida.equals(r1Entrada));
     }
 
     private boolean solapadas (Parcela parcela, Reserva reserva) {
         List<Reserva> listaReservas  = mReservaViewModel.getAllReservas2();
         for (Reserva r : listaReservas) {
             if (comprobarSolape(r, reserva)) {
+                android.util.Log.d("SOLAPE_ENCONTRADO_RESERVA", String.valueOf(r.getId()));
                 List<ParcelaWithReserva>  parcelas = mParcelaReservaViewModel.getParcelasForReserva(r.getId());
                 for (ParcelaWithReserva pr : parcelas) {
                     for (Parcela p : pr.parcelas) {
+                        android.util.Log.d("SOLAPE_PARCELA", p.getName());
                         if (p.getName().equals(parcela.getName())) return true;
                     }
                 }
@@ -81,13 +87,13 @@ public class ReservaOcupantes extends AppCompatActivity {
         Date fechaSalida = new Date();
         Date diaActual = Calendar.getInstance().getTime();
         try {
-            android.util.Log.d("FECHA_ENTRADA", reserva.getFechaEntrada());
-            android.util.Log.d("FECHA_SALIDA", reserva.getFechaSalida());
+            //android.util.Log.d("FECHA_ENTRADA", reserva.getFechaEntrada());
+            //android.util.Log.d("FECHA_SALIDA", reserva.getFechaSalida());
             fechaEntrada = formatter.parse(reserva.getFechaEntrada());
             fechaSalida = formatter.parse(reserva.getFechaSalida());
-            android.util.Log.d("FECHA_ENTRADA", fechaEntrada.toString());
-            android.util.Log.d("FECHA_SALIDA", fechaSalida.toString());
-            android.util.Log.d("FECHA_ACTUAL", diaActual.toString());
+            //android.util.Log.d("FECHA_ENTRADA", fechaEntrada.toString());
+            //android.util.Log.d("FECHA_SALIDA", fechaSalida.toString());
+            //android.util.Log.d("FECHA_ACTUAL", diaActual.toString());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -98,6 +104,7 @@ public class ReservaOcupantes extends AppCompatActivity {
         for (Parcela parcela : vectorParcelas) {
             if (ocupantesPorParcela.get(i) > parcela.getOcupantes()) return "ERROR: Se supera la capacidad de la parcela \"" + parcela.getName() + "\"";
             if(solapadas(parcela, reserva)) return "ERROR: La reserva para la parcela \"" + parcela.getName() + "\" se solapa con otra reserva";
+            i++;
         }
 
         return "Reserva creada correctamente";
