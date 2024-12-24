@@ -3,6 +3,7 @@ package es.unizar.eina.T202_camping.ui;
 import static androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -120,7 +121,6 @@ public class Parcelapad_reserva extends AppCompatActivity {
 
 
     public boolean onContextItemSelected(MenuItem item) {
-        item.setChecked(!item.isChecked());
         Parcela current = mAdapter.getCurrent();
         switch (item.getItemId()) {
             case EDIT_ID:

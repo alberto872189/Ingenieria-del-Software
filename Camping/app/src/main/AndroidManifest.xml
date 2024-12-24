@@ -43,6 +43,9 @@
             android:name=".ui.ReservaOcupantes"
             android:exported="false"/>
         <activity
+            android:name=".ui.ReservaOcupantesEdit"
+            android:exported="false"/>
+        <activity
             android:name=".ui.Index"
             android:exported="true">
             <intent-filter>

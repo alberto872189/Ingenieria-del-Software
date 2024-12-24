@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/big_padding"
             android:background="@color/colorPrimary"
-            android:text="Cancelar"
+            android:text="Atrás"
             android:textColor="@color/buttonLabel" />
 
         <Button
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/big_padding"
             android:background="@color/colorPrimary"
-            android:text="@string/button_save"
+            android:text="Guardar"
             android:textColor="@color/buttonLabel" />
     </LinearLayout>
 

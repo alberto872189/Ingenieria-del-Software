@@ -98,6 +98,10 @@ public class CampingRepository {
         return mParcelaReservaDao.getParcelasForReserva(id);
     }
 
+    public List<Parcela_Reserva> getParcelaForReserva2(int id) {
+        return mParcelaReservaDao.getParcelasForReserva2(id);
+    }
+
     /** Inserta una nota nueva en la base de datos
      * @param parcela La nota consta de: un título (parcela.getTitle()) no nulo (parcela.getTitle()!=null) y no vacío
      *             (parcela.getTitle().length()>0); y un cuerpo (parcela.getBody()) no nulo.
@@ -225,6 +229,17 @@ public class CampingRepository {
     public int delete(Parcela_Reserva pr) {
         Future<Integer> future = CampingRoomDatabase.databaseWriteExecutor.submit(
                 () -> mParcelaReservaDao.delete(pr));
+        try {
+            return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException ex) {
+            Log.d("CampingRepository", ex.getClass().getSimpleName() + ex.getMessage());
+            return -1;
+        }
+    }
+
+    public int deleteForReserva(int id) {
+        Future<Integer> future = CampingRoomDatabase.databaseWriteExecutor.submit(
+                () -> mParcelaReservaDao.deleteForReserva(id));
         try {
             return future.get(TIMEOUT, TimeUnit.MILLISECONDS);
         } catch (InterruptedException | ExecutionException | TimeoutException ex) {

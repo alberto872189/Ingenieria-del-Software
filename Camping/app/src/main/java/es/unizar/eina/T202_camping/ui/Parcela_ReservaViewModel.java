@@ -25,8 +25,11 @@ public class Parcela_ReservaViewModel extends AndroidViewModel {
 
     LiveData<List<Parcela_Reserva>> getAllParcelaReserva() { return mAllParcela_Reservas; }
     List<ParcelaWithReserva> getParcelasForReserva(int id) { return mRepository.getParcelaForReserva(id);}
+    List<Parcela_Reserva> getParcelasForReserva2(int id) { return mRepository.getParcelaForReserva2(id);}
 
     public void insert(Parcela_Reserva pr) { mRepository.insert(pr); }
     public void update(Parcela_Reserva pr) { mRepository.update(pr); }
     public void delete(Parcela_Reserva pr) { mRepository.delete(pr); }
+
+    public void deleteForReserva(int id) { mRepository.deleteForReserva(id); }
 }

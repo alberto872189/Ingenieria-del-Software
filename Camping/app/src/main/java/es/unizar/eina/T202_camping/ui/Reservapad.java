@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -173,17 +174,13 @@ public class Reservapad extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResultReserva executable) {
         return registerForActivityResult(
-                new StartActivityForResult(),
+                new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == RESULT_OK) {
-                        Bundle extras = result.getData().getExtras();
-                        Reserva reserva = new Reserva(extras.getString(ReservaEdit.RESERVA_NAME),
-                                extras.getString(ReservaEdit.RESERVA_PHONE),
-                                extras.getString(ReservaEdit.RESERVA_ENTRADA),
-                                extras.getString(ReservaEdit.RESERVA_SALIDA),
-                                1.0); //Rellenar con precio
-                        executable.process(extras, reserva);
-                    }
+                    /*if (result.getResultCode() == RESULT_OK) {
+                        Intent replyIntent = new Intent();
+                        setResult(RESULT_OK, replyIntent);
+                        finish();
+                    }*/
                 });
     }
 

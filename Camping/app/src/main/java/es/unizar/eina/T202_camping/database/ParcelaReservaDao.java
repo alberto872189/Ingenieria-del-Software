@@ -27,6 +27,9 @@ public interface ParcelaReservaDao {
     @Query("DELETE FROM Parcela_Reserva")
     void deleteAll();
 
+    @Query("DELETE FROM Parcela_Reserva WHERE id = :id")
+    int deleteForReserva(int id);
+
     @Query("SELECT * FROM Parcela_Reserva ORDER BY name")
     LiveData<List<Parcela_Reserva>> getOrderedParcelaReserva();
 
@@ -41,6 +44,10 @@ public interface ParcelaReservaDao {
     @Transaction
     @Query("SELECT * FROM PARCELA_RESERVA WHERE id = :id")
     List<ParcelaWithReserva> getParcelasForReserva(int id);
+
+    @Transaction
+    @Query("SELECT * FROM PARCELA_RESERVA WHERE id = :id")
+    List<Parcela_Reserva> getParcelasForReserva2(int id);
 
 }
 
