@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -42,6 +44,9 @@ public class ReservaOcupantesEdit extends AppCompatActivity {
     Button mSaveButton;
     Button mEditButton;
     Button mCancelButton;
+
+    ArrayList<String> seleccionadas;
+    LinearLayout layout;
 
     private boolean comprobarSolape(Reserva r1, Reserva r2) {
         Date r1Entrada = new Date();
@@ -113,7 +118,7 @@ public class ReservaOcupantesEdit extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservaocupantes);
+        setContentView(R.layout.activity_reservaocupantesedit);
 
         mReservaViewModel = new ViewModelProvider(this).get(ReservaViewModel.class);
         mParcelaViewModel = new ViewModelProvider(this).get(ParcelaViewModel.class);
@@ -128,7 +133,7 @@ public class ReservaOcupantesEdit extends AppCompatActivity {
         //ArrayList<String> parcelas = (ArrayList<String>)extras.get("parcelasSeleccionadas");
         mRowId = Integer.valueOf((String)extras.get(ReservaEdit.RESERVA_ID));
         List<Parcela_Reserva>  parcelas = mParcelaReservaViewModel.getParcelasForReserva2(mRowId);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.holder);
+        layout = (LinearLayout) findViewById(R.id.holder);
         for (Parcela_Reserva p : parcelas) {
             String parcela = p.getParcelaID();
             android.util.Log.d("PARCELASEL", parcela);
@@ -147,6 +152,11 @@ public class ReservaOcupantesEdit extends AppCompatActivity {
 
         }
 
+        seleccionadas = new ArrayList<>();
+        for (Parcela_Reserva i : parcelas){
+            seleccionadas.add(i.getParcelaID());
+        }
+
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
             Vector<Integer> ocupantesPorParcela = new Vector<Integer>();
@@ -156,12 +166,6 @@ public class ReservaOcupantesEdit extends AppCompatActivity {
                     ocupantesPorParcela.add(ocupantes);
                 }
             }
-
-            ArrayList<String> seleccionadas = new ArrayList<>();
-            for (Parcela_Reserva i : parcelas){
-                seleccionadas.add(i.getParcelaID());
-            }
-
             Double SumaPrecio = 0.0;
             int i = 0;
             for (String parcela : seleccionadas) {
@@ -198,12 +202,6 @@ public class ReservaOcupantesEdit extends AppCompatActivity {
             }
 
             Intent replyIntent = new Intent();
-            /*int[] ocupantes = new int[mEditTexts.size()];
-            int i = 0;
-            for (EditText editText : mEditTexts){
-                ocupantes[i] = Integer.valueOf(editText.getText().toString());
-            }
-            replyIntent.putExtra("ocupantes", ocupantes);*/
             setResult(RESULT_OK, replyIntent);
             finish();
         });
@@ -214,5 +212,56 @@ public class ReservaOcupantesEdit extends AppCompatActivity {
             setResult(RESULT_CANCELED, replyIntent);
             finish();
         });
+
+        mEditButton = findViewById(R.id.button_modify);
+        mEditButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, Parcelapad_reserva_edit.class);
+            mStartUpdateReserva.launch(intent);
+
+        });
+    }
+
+    ActivityResultLauncher<Intent> mStartUpdateReserva = newActivityResultLauncher(new ReservaOcupantesEdit.ExecuteActivityResultReserva() {
+        @Override
+        public void process(Bundle extras, Reserva reserva) {
+            //mReservaViewModel.insert(reserva);
+        }
+    });
+
+    interface ExecuteActivityResultReserva {
+        void process(Bundle extras, Reserva reserva);
+    }
+
+
+    ActivityResultLauncher<Intent> newActivityResultLauncher(ExecuteActivityResultReserva executable) {
+        return registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Bundle extras = result.getData().getExtras();
+                        seleccionadas = (ArrayList<String>)extras.get("parcelasSeleccionadas");
+                        layout.removeAllViews();
+
+                        mTextViews.removeAllElements();
+                        mEditTexts.removeAllElements();
+
+                        for (String parcela : seleccionadas) {
+                            android.util.Log.d("PARCELASEL", parcela);
+                            TextView tv = new TextView(this);
+                            tv.setText(parcela);
+                            tv.setTextSize(18);
+                            EditText et = new EditText(this);
+                            et.setTextSize(18);
+                            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            layout.addView(tv, lp1);
+                            layout.addView(et, lp2);
+                            mTextViews.add(tv);
+                            mEditTexts.add(et);
+                        }
+
+                    }
+                });
     }
 }
+
