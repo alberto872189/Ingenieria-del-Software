@@ -1,12 +1,13 @@
 <resources>
-    <string name="app_name">Notepad</string>
-    <string name="hint_title">Type title ...</string>
-    <string name="hint_body">Type body ...</string>
-    <string name="button_save">Save</string>
-    <string name="empty_not_saved">Note not saved because title is empty.</string>
-    <string name="add_note">Add parcela</string>
-    <string name="menu_delete">Delete Note</string>
-    <string name="menu_edit">Edit Note</string>
+    <string name="app_name">Camping</string>
+    <string name="hint_title">Nombre...</string>
+    <string name="hint_body">Descripción...</string>
+    <string name="button_save">Guardar</string>
+    <string name="empty_not_saved">Error: nombre vacío</string>
+    <string name="menu_delete">Eliminar parcela</string>
+    <string name="menu_delete_reserva">Eliminar reserva</string>
+    <string name="menu_edit">Editar parcela</string>
+    <string name="menu_edit_reserva">Editar reserva</string>
     <string name="menu_send">Enviar reserva</string>
     <string name="title">Title</string>
     <string name="body">Body</string>

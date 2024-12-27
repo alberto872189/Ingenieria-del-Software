@@ -53,7 +53,7 @@
         android:layout_margin="@dimen/big_padding"
         android:fadingEdge="horizontal"
         android:fontFamily="sans-serif-light"
-        android:hint="Escribe la descripción"
+        android:hint="@string/hint_body"
         android:inputType="textAutoComplete"
         android:scrollbars="vertical"
         android:textSize="18sp" />
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/big_padding"
             android:fontFamily="sans-serif-light"
-            android:hint="@string/hint_title"
+            android:hint="Ocupantes..."
             android:inputType="number"
             android:minHeight="@dimen/min_height"
             android:textSize="18sp" />
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/big_padding"
             android:fontFamily="sans-serif-light"
-            android:hint="@string/hint_title"
+            android:hint="Precio..."
             android:inputType="number|numberDecimal"
             android:minHeight="@dimen/min_height"
             android:textSize="18sp" />

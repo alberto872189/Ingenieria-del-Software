@@ -56,7 +56,7 @@
             android:layout_margin="@dimen/big_padding"
             android:fadingEdge="horizontal"
             android:fontFamily="sans-serif-light"
-            android:hint="Escribe el número"
+            android:hint="Número"
             android:inputType="textAutoComplete"
             android:scrollbars="vertical"
             android:textSize="18sp" />
