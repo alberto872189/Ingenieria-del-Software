@@ -40,6 +40,7 @@ public class RepTest {
         //test 1: insert clases correctas
         Reserva r = new Reserva("reserva1", "111111111", "03/10/2015", "04/10/2015", 1.0);
         Long id4 = mRepository.insert(r);
+        r.setId(id4.intValue());
         android.util.Log.d("Test 4", String.valueOf(id4));
 
         //test 2: insert name null
@@ -64,7 +65,7 @@ public class RepTest {
         //Tests insert parcela_reserva
 
         //test 1: insert clases correctas
-        Parcela_Reserva pr = new Parcela_Reserva("parcela1", id4.intValue(), 1);
+        Parcela_Reserva pr = new Parcela_Reserva("parcela1", 1, 1);
         Long id7 = mRepository.insert(pr);
         android.util.Log.d("Test 7", String.valueOf(id7));
 
