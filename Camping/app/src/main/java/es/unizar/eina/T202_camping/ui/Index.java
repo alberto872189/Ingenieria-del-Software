@@ -32,7 +32,7 @@ public class Index extends AppCompatActivity {
             startActivity(intent);
         });
 
-        mReservaButton.setOnClickListener(view -> {
+        mPruebasButton.setOnClickListener(view -> {
             Intent intent = new Intent(Index.this, UnitTests.class);
             startActivity(intent);
         });

@@ -7,15 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
 import es.unizar.eina.T202_camping.database.Parcela;
+import es.unizar.eina.T202_camping.database.RepTest;
 import es.unizar.eina.T202_camping.database.Reserva;
 import es.unizar.eina.T202_camping.database.Parcela_Reserva;
 import es.unizar.eina.T202_camping.R;
+import es.unizar.eina.T202_camping.database.SobTest;
+import es.unizar.eina.T202_camping.database.VolTest;
 
 public class UnitTests extends AppCompatActivity {
     Button mRepositoryButton;
@@ -30,18 +34,19 @@ public class UnitTests extends AppCompatActivity {
         mSobrecargaButton = findViewById(R.id.sobrecargaButton);
 
         mRepositoryButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, RepTest.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, RepTest.class);
+            startActivity(intent);*/
+            RepTest.ejecutar(getApplication());
         });
 
         mVolumenButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, VolTest.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, VolTest.class);
+            startActivity(intent);*/
         });
 
         mSobrecargaButton.setOnClickListener(view -> {
-            Intent intent = new Intent(this, SobTest.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, SobTest.class);
+            startActivity(intent);*/
         });
     }
 }

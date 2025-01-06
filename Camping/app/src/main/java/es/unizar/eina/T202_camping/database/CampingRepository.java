@@ -114,6 +114,10 @@ public class CampingRepository {
          * (databaseWriteExecutor.submit). Para poder sincronizar la recuperación del resultado
          * devuelto por la base de datos, se puede utilizar un Future.
          */
+        if(parcela.getName() == null || parcela.getName().isEmpty()){
+            return -1;
+        }
+
         Future<Long> future = CampingRoomDatabase.databaseWriteExecutor.submit(
                 () -> mParcelaDao.insert(parcela));
         try {
@@ -167,6 +171,10 @@ public class CampingRepository {
          * (databaseWriteExecutor.submit). Para poder sincronizar la recuperación del resultado
          * devuelto por la base de datos, se puede utilizar un Future.
          */
+        if(reserva.getName() == null || reserva.getName().isEmpty()){
+            return -1;
+        }
+
         Future<Long> future = CampingRoomDatabase.databaseWriteExecutor.submit(
                 () -> mReservaDao.insert(reserva));
         try {
@@ -205,6 +213,10 @@ public class CampingRepository {
          * (databaseWriteExecutor.submit). Para poder sincronizar la recuperación del resultado
          * devuelto por la base de datos, se puede utilizar un Future.
          */
+        if(pr.getParcelaID() == null || pr.getParcelaID().isEmpty()){
+            return -1;
+        }
+
         Future<Long> future = CampingRoomDatabase.databaseWriteExecutor.submit(
                 () -> mParcelaReservaDao.insert(pr));
         try {
