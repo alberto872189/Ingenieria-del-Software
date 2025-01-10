@@ -174,13 +174,25 @@ public class VolTest {
             mRepository.insert(rAux);
         }
         //TEST 8.1 - Update reserva
+        Reserva r1500 = new Reserva("reserva1500", "150015001", "06/10/2015", "07/10/2015", 150.0);
+        idUpdate = mRepository.update(r1500);
+
+        android.util.Log.d("Test 8.1", String.valueOf(idUpdate));
 
         //TEST 8.2 - Select reserva
 
         //TEST 8.3 - Delete reserva
+        idDelete = mRepository.delete(r1500);
+        android.util.Log.d("Test 8.3", String.valueOf(idDelete));
+
+        idInsert = mRepository.insert(r1500);
+        r.setId(idInsert.intValue());
 
         //TEST 8.4 - Insert reserva
-
+        Reserva r5001 = new Reserva("reserva5001", "500150015", "06/10/2015", "07/10/2015", 500.1);
+        idInsert = mRepository.insert(r5001);
+        r3.setId(idInsert.intValue());
+        android.util.Log.d("Test 8.4", String.valueOf(idInsert));
 
 
         //TEST 9 - 0 Parcelas 10000 Reservas
@@ -190,10 +202,19 @@ public class VolTest {
             mRepository.insert(rAux);
         }
         //TEST 9.1 - Update reserva
+        Reserva r7500 = new Reserva("reserva7500", "750075007", "06/10/2015", "07/10/2015", 750.0);
+        idUpdate = mRepository.update(r7500);
+
+        android.util.Log.d("Test 9.1", String.valueOf(idUpdate));
 
         //TEST 9.2 - Select reserva
 
         //TEST 9.3 - Delete reserva
+        idDelete = mRepository.delete(r7500);
+        android.util.Log.d("Test 9.3", String.valueOf(idDelete));
+
+        idInsert = mRepository.insert(r7500);
+        r.setId(idInsert.intValue());
 
 
 
@@ -204,16 +225,45 @@ public class VolTest {
             mRepository.insert(pAux);
         }
         //TEST 10.1 - Update reserva
+        r7500 = new Reserva("reserva7500", "750075007", "08/10/2015", "09/10/2015", 750.0);
+        idUpdate = mRepository.update(r7500);
+
+        android.util.Log.d("Test 10.1", String.valueOf(idUpdate));
 
         //TEST 10.2 - Select reserva
 
         //TEST 10.3 - Delete reserva
+        idDelete = mRepository.delete(r7500);
+        android.util.Log.d("Test 10.3", String.valueOf(idDelete));
 
-        //TEST 10.4 - Update reserva
+        idInsert = mRepository.insert(r7500);
+        r.setId(idInsert.intValue());
 
-        //TEST 10.5 - Select reserva
+        //TEST 10.4 - Update parcela
+        p75 = new Parcela("parcela75", "hola 75", 75.0, 750);
+        idUpdate = mRepository.update(p75);
 
-        //TEST 10.6 - Delete reserva
+        android.util.Log.d("Test 10.4", String.valueOf(idUpdate));
 
+        //TEST 10.5 - Select parcela
+
+        //TEST 10.6 - Delete parcela
+        idDelete = mRepository.delete(p75);
+        android.util.Log.d("Test 10.6", String.valueOf(idDelete));
+
+        mRepository.insert(p75);
+
+        //BORRADO
+        for (int i = 0; i < 100; i++) {
+            int nParcela = i+1;
+            Parcela pAux = new Parcela("parcela" + nParcela, "hola " + nParcela, 5.5, 50);
+            mRepository.delete(pAux);
+        }
+
+        for (int i = 0; i < 10000; i++) {
+            int nReserva = i+1;
+            Reserva rAux = new Reserva("reserva" + nReserva, String.valueOf(nReserva), "05/10/2015", "08/10/2015", 1000.5);
+            mRepository.delete(rAux);
+        }
     }
 }
