@@ -42,6 +42,7 @@ public class UnitTests extends AppCompatActivity {
         mVolumenButton.setOnClickListener(view -> {
             /*Intent intent = new Intent(this, VolTest.class);
             startActivity(intent);*/
+            VolTest.ejecutar(getApplication());
         });
 
         mSobrecargaButton.setOnClickListener(view -> {
