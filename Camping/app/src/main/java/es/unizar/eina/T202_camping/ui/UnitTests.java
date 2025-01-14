@@ -48,6 +48,7 @@ public class UnitTests extends AppCompatActivity {
         mSobrecargaButton.setOnClickListener(view -> {
             /*Intent intent = new Intent(this, SobTest.class);
             startActivity(intent);*/
+            SobTest.ejecutar(getApplication());
         });
     }
 }
