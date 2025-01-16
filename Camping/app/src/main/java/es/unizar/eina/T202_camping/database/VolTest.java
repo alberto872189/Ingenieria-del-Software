@@ -2,6 +2,10 @@ package es.unizar.eina.T202_camping.database;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
+
 public class VolTest {
 
     private CampingRepository mRepository;
@@ -34,6 +38,9 @@ public class VolTest {
         android.util.Log.d("Test 2.1", String.valueOf(idUpdate));
 
         //TEST 2.2 - Select parcela
+        android.util.Log.d("Test 2.2", "Obteniendo parcelas...");
+        LiveData<List<Parcela>> pList = mRepository.getAllParcelas();
+        android.util.Log.d("Test 2.2", "Parcelas obtenidas correctamente");
 
         //TEST 2.3 - Delete parcela
         int idDelete = mRepository.delete(p2);
@@ -54,6 +61,9 @@ public class VolTest {
         android.util.Log.d("Test 3.1", String.valueOf(idUpdate));
 
         //TEST 3.2 - Select parcela
+        android.util.Log.d("Test 3.2", "Obteniendo parcelas...");
+        pList = mRepository.getAllParcelas();
+        android.util.Log.d("Test 3.2", "Parcelas obtenidas correctamente");
 
         //TEST 3.3 - Delete parcela
         idDelete = mRepository.delete(p3);
@@ -80,6 +90,10 @@ public class VolTest {
         android.util.Log.d("Test 4.1", String.valueOf(idUpdate));
 
         //TEST 4.2 - Select parcela
+        android.util.Log.d("Test 4.2", "Obteniendo parcelas...");
+        pList = mRepository.getAllParcelas();
+        android.util.Log.d("Test 4.2", "Parcelas obtenidas correctamente");
+
 
         //TEST 4.3 - Delete parcela
         idDelete = mRepository.delete(p10);
@@ -105,6 +119,9 @@ public class VolTest {
         android.util.Log.d("Test 5.1", String.valueOf(idUpdate));
 
         //TEST 5.2 - Select parcela
+        android.util.Log.d("Test 5.2", "Obteniendo parcelas...");
+        pList = mRepository.getAllParcelas();
+        android.util.Log.d("Test 5.2", "Parcelas obtenidas correctamente");
 
         //TEST 5.3 - Delete parcela
         idDelete = mRepository.delete(p75);
@@ -129,6 +146,9 @@ public class VolTest {
         android.util.Log.d("Test 6.1", String.valueOf(idUpdate));
 
         //TEST 6.2 - Select reserva
+        android.util.Log.d("Test 6.2", "Obteniendo reservas...");
+        LiveData<List<Reserva>> rList = mRepository.getAllReservas();
+        android.util.Log.d("Test 6.2", "Reservas obtenidas correctamente");
 
         //TEST 6.3 - Delete reserva
         idDelete = mRepository.delete(r2);
@@ -152,6 +172,9 @@ public class VolTest {
         android.util.Log.d("Test 7.1", String.valueOf(idUpdate));
 
         //TEST 7.2 - Select reserva
+        android.util.Log.d("Test 7.2", "Obteniendo reservas...");
+        rList = mRepository.getAllReservas();
+        android.util.Log.d("Test 7.2", "Reservas obtenidas correctamente");
 
         //TEST 7.3 - Delete reserva
         idDelete = mRepository.delete(r2);
@@ -180,6 +203,9 @@ public class VolTest {
         android.util.Log.d("Test 8.1", String.valueOf(idUpdate));
 
         //TEST 8.2 - Select reserva
+        android.util.Log.d("Test 8.2", "Obteniendo reservas...");
+        rList = mRepository.getAllReservas();
+        android.util.Log.d("Test 8.2", "Reservas obtenidas correctamente");
 
         //TEST 8.3 - Delete reserva
         idDelete = mRepository.delete(r1500);
@@ -208,6 +234,9 @@ public class VolTest {
         android.util.Log.d("Test 9.1", String.valueOf(idUpdate));
 
         //TEST 9.2 - Select reserva
+        android.util.Log.d("Test 9.2", "Obteniendo reservas...");
+        rList = mRepository.getAllReservas();
+        android.util.Log.d("Test 9.2", "Reservas obtenidas correctamente");
 
         //TEST 9.3 - Delete reserva
         idDelete = mRepository.delete(r7500);
@@ -231,6 +260,9 @@ public class VolTest {
         android.util.Log.d("Test 10.1", String.valueOf(idUpdate));
 
         //TEST 10.2 - Select reserva
+        android.util.Log.d("Test 10.2", "Obteniendo reservas...");
+        rList = mRepository.getAllReservas();
+        android.util.Log.d("Test 10.2", "Reservas obtenidas correctamente");
 
         //TEST 10.3 - Delete reserva
         idDelete = mRepository.delete(r7500);
@@ -246,6 +278,9 @@ public class VolTest {
         android.util.Log.d("Test 10.4", String.valueOf(idUpdate));
 
         //TEST 10.5 - Select parcela
+        android.util.Log.d("Test 10.5", "Obteniendo parcelas...");
+        pList = mRepository.getAllParcelas();
+        android.util.Log.d("Test 10.5", "Parcelas obtenidas correctamente");
 
         //TEST 10.6 - Delete parcela
         idDelete = mRepository.delete(p75);
