@@ -138,7 +138,6 @@ public class VolTest {
         }
         idInsert = mRepository.insert(r);
         r.setId(idInsert.intValue());
-        android.util.Log.d("Test 1.1", String.valueOf(idInsert));
         //TEST 6.1 - Update reserva
         Reserva r2 = new Reserva("reserva1", "222222222", "04/10/2015", "05/10/2015", 1.5);
         idUpdate = mRepository.update(r2);
